@@ -352,38 +352,12 @@ nav {
     display: flex;
     align-items: center;
     padding-top: 80px;
-    background-color: var(--dark-color);
     position: relative;
     overflow: hidden;
     background: radial-gradient(ellipse at bottom, #1B2735 0%, #090A0F 100%);
 }
 
-.hero::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: var(--gradient-bg);
-    clip-path: polygon(0 0, 100% 0, 100% 80%, 0 100%);
-    z-index: -1;
-    opacity: 0.7;
-}
 
-.hero::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-image: url('data:image/svg+xml;charset=utf8,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"%3E%3Cpath fill="%2300f0ff" fill-opacity="0.1" d="M0,288L48,272C96,256,192,224,288,197.3C384,171,480,149,576,165.3C672,181,768,235,864,250.7C960,267,1056,245,1152,224C1248,203,1344,181,1392,170.7L1440,160L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"%3E%3C/path%3E%3C/svg%3E');
-    background-size: cover;
-    background-position: center;
-    z-index: -1;
-    opacity: 0.5;
-}
 
 /* Galaxy stars background */
 .hero::before {
@@ -1219,7 +1193,6 @@ nav {
     transition: var(--transition);
     opacity: 0;
     transform: translateY(30px);
-    transition: all 0.6s ease;
     border: 1px solid var(--primary-color);
     background-color: rgba(10, 10, 32, 0.7);
     position: relative;

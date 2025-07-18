@@ -27,6 +27,100 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Poppins:wght@300;400;500;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+
+    <!-- WOW SKILLS STYLES -->
+    <style>
+        .skills-wow-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .skill-wow-card {
+            background: rgba(26, 26, 58, 0.6); /* Slightly lighter space with transparency */
+            border: 1px solid var(--primary-color);
+            border-radius: 10px;
+            padding: 2rem;
+            text-align: center;
+            backdrop-filter: blur(10px);
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease, opacity 0.5s ease;
+            opacity: 0;
+            transform: translateY(40px);
+        }
+        
+        .skill-wow-card.in-view {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .skill-wow-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 0 25px var(--primary-color);
+        }
+
+        .skill-wow-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -150%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(77, 201, 255, 0.2), transparent);
+            transform: skewX(-25deg);
+            transition: left 0.7s ease;
+        }
+
+        .skill-wow-card:hover::before {
+            left: 150%;
+        }
+
+        .skill-icon {
+            font-size: 3rem;
+            color: var(--accent-color);
+            text-shadow: 0 0 15px var(--accent-color);
+            margin-bottom: 1.5rem;
+            transition: color 0.3s ease;
+        }
+        
+        .skill-wow-card:hover .skill-icon {
+            color: var(--secondary-color);
+        }
+
+        .skill-wow-card h3 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.5rem;
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+            text-shadow: 0 0 10px var(--primary-color);
+        }
+
+        .skill-tags {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .skill-tag {
+            background-color: rgba(77, 201, 255, 0.1);
+            color: var(--accent-color);
+            padding: 0.4rem 0.8rem;
+            border-radius: 5px;
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 0.9rem;
+            border: 1px solid rgba(77, 201, 255, 0.2);
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .skill-wow-card:hover .skill-tag {
+            background-color: rgba(255, 107, 158, 0.1);
+            color: var(--secondary-color);
+            border-color: rgba(255, 107, 158, 0.2);
+        }
+    </style>
 </head>
 <body>
     <header>
@@ -39,9 +133,7 @@
                     <li><a href="#skills">Skills</a></li>
                     <li><a href="#experience">Experience</a></li>
                     <li><a href="#projects">Projects</a></li>
-                    <li><a href="#achievements">Achievements</a></li>
-                    <li><a href="#languages">Languages</a></li>
-                    <li><a href="#certifications">Certifications</a></li>
+                    <li><a href="#education">Education</a></li>
                     <li><a href="#contact">Contact</a></li>
                 </ul>
 
@@ -69,7 +161,7 @@
                     <a href="#projects" class="btn secondary-btn">VIEW_PROJECTS<span class="btn-glitch"></span></a>
                 </div>
                 <div class="social-icons">
-                    <a href="https://linkedin.com/in/punthawee-sorseang" target="_blank"><i class="fab fa-linkedin"></i></a>
+                    <a href="https://www.linkedin.com/in/punthawee-sorseang-0775ba1b3" target="_blank"><i class="fab fa-linkedin"></i></a>
                     <a href="https://github.com/punthawee" target="_blank"><i class="fab fa-github"></i></a>
                     <a href="mailto:punthaweeso@gmail.com"><i class="fas fa-envelope"></i></a>
                 </div>
@@ -82,17 +174,13 @@
             <h2 class="section-title">About Me</h2>
             <div class="about-content">
                 <div class="about-image">
-                    <img src="assets/images/profile-placeholder.jpg" alt="Your Name">
+                    <img src="assets/images/project-placeholder.jpg" alt="Punthawee Sorseang" onerror="this.onerror=null;this.src='assets/images/portfolio-default.png';">
                 </div>
                 <div class="about-text">
                     <p>Welcome to my portfolio! I'm currently a Senior Backend Developer at Carabao Tawandang, focusing on developing backend applications that are essential to the organization's core operations. My role involves creating efficient and scalable solutions to meet the company's growing needs.</p>
                     <p>My approach to work combines analytical thinking with creative problem-solving. I thrive in collaborative environments and am dedicated to delivering high-quality results through microservices architectures, agile workflows, and continuous improvement practices.</p>
                     <p>With expertise spanning backend and frontend development, I continuously explore new technologies to build innovative solutions and mentor junior developers to foster professional growth.</p>
                     <div class="about-details">
-                        <div class="detail-item">
-                            <i class="fas fa-map-marker-alt"></i>
-                            <span>Location: Bang Yi Ruea Subdistrict, Thon Buri District, Bangkok, 10600</span>
-                        </div>
                         <div class="detail-item">
                             <i class="fas fa-graduation-cap"></i>
                             <span>Degree: Bachelor of Science in Computer Science</span>
@@ -107,107 +195,75 @@
         </div>
     </section>
 
+    <!-- WOW SKILLS SECTION -->
     <section id="skills" class="skills">
         <div class="container">
             <h2 class="section-title">My Skills</h2>
-            <div class="skills-content">
-                <div class="skill-category">
-                    <h3>Backend & Frameworks</h3>
-                    <div class="skill-items">
-                        <div class="skill-item">
-                            <div class="skill-name" data-level="90%">Node.js & Express.js</div>
-                            <div class="skill-bar">
-                                <div class="skill-level" style="width: 90%"></div>
-                            </div>
-                        </div>
-                        <div class="skill-item">
-                            <div class="skill-name" data-level="95%">Nest.js & TypeScript</div>
-                            <div class="skill-bar">
-                                <div class="skill-level" style="width: 95%"></div>
-                            </div>
-                        </div>
-                        <div class="skill-item">
-                            <div class="skill-name" data-level="85%">PHP (CodeIgniter & Laravel)</div>
-                            <div class="skill-bar">
-                                <div class="skill-level" style="width: 85%"></div>
-                            </div>
-                        </div>
-                        <div class="skill-item">
-                            <div class="skill-name" data-level="75%">Java Spring Boot</div>
-                            <div class="skill-bar">
-                                <div class="skill-level" style="width: 75%"></div>
-                            </div>
-                        </div>
+            <div class="skills-wow-grid">
+                <!-- Backend Card -->
+                <div class="skill-wow-card" style="transition-delay: 0.1s;">
+                    <div class="skill-icon"><i class="fas fa-server"></i></div>
+                    <h3>BackEnd</h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag">Nest.Js</span>
+                        <span class="skill-tag">NodeJs</span>
+                        <span class="skill-tag">ExpressJs</span>
+                        <span class="skill-tag">TypeScript</span>
+                        <span class="skill-tag">Php</span>
+                        <span class="skill-tag">Laravel</span>
+                        <span class="skill-tag">Codelgniter</span>
+                        <span class="skill-tag">JavaSpringBoot</span>
                     </div>
                 </div>
-                <div class="skill-category">
-                    <h3>Frontend & Mobile</h3>
-                    <div class="skill-items">
-                        <div class="skill-item">
-                            <div class="skill-name" data-level="85%">Vue.js & Nuxt.js</div>
-                            <div class="skill-bar">
-                                <div class="skill-level" style="width: 85%"></div>
-                            </div>
-                        </div>
-                        <div class="skill-item">
-                            <div class="skill-name" data-level="80%">React.js & React Native</div>
-                            <div class="skill-bar">
-                                <div class="skill-level" style="width: 80%"></div>
-                            </div>
-                        </div>
-                        <div class="skill-item">
-                            <div class="skill-name" data-level="90%">HTML/CSS & JavaScript</div>
-                            <div class="skill-bar">
-                                <div class="skill-level" style="width: 90%"></div>
-                            </div>
-                        </div>
-                        <div class="skill-item">
-                            <div class="skill-name" data-level="75%">Bootstrap & jQuery</div>
-                            <div class="skill-bar">
-                                <div class="skill-level" style="width: 75%"></div>
-                            </div>
-                        </div>
+                <!-- Frontend Card -->
+                <div class="skill-wow-card" style="transition-delay: 0.2s;">
+                    <div class="skill-icon"><i class="fas fa-desktop"></i></div>
+                    <h3>FrontEnd</h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag">Vue</span>
+                        <span class="skill-tag">Nuxt</span>
+                        <span class="skill-tag">React</span>
+                        <span class="skill-tag">React-Native</span>
+                        <span class="skill-tag">Bootstrap</span>
+                        <span class="skill-tag">jQuery</span>
+                        <span class="skill-tag">HTML/CSS</span>
                     </div>
                 </div>
-                <div class="skill-category">
-                    <h3>Databases & Infrastructure</h3>
-                    <div class="skill-items">
-                        <div class="skill-item">
-                            <div class="skill-name" data-level="90%">PostgreSQL & MySQL</div>
-                            <div class="skill-bar">
-                                <div class="skill-level" style="width: 90%"></div>
-                            </div>
-                        </div>
-                        <div class="skill-item">
-                            <div class="skill-name" data-level="85%">MongoDB & Redis</div>
-                            <div class="skill-bar">
-                                <div class="skill-level" style="width: 85%"></div>
-                            </div>
-                        </div>
-                        <div class="skill-item">
-                            <div class="skill-name" data-level="80%">SQL Server & Elasticsearch</div>
-                            <div class="skill-bar">
-                                <div class="skill-level" style="width: 80%"></div>
-                            </div>
-                        </div>
-                        <div class="skill-item">
-                            <div class="skill-name" data-level="85%">Docker & Docker-compose</div>
-                            <div class="skill-bar">
-                                <div class="skill-level" style="width: 85%"></div>
-                            </div>
-                        </div>
-                        <div class="skill-item">
-                            <div class="skill-name" data-level="75%">Nginx & Kong Gateway</div>
-                            <div class="skill-bar">
-                                <div class="skill-level" style="width: 75%"></div>
-                            </div>
-                        </div>
-                        <div class="skill-item">
-                            <div class="skill-name" data-level="80%">Git & GitHub Actions</div>
-                            <div class="skill-bar">
-                                <div class="skill-level" style="width: 80%"></div>
-                            </div>
-                        </div>
+                <!-- Database Card -->
+                <div class="skill-wow-card" style="transition-delay: 0.3s;">
+                    <div class="skill-icon"><i class="fas fa-database"></i></div>
+                    <h3>Database Management</h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag">Postgres</span>
+                        <span class="skill-tag">MySQL</span>
+                        <span class="skill-tag">SQL Server</span>
+                        <span class="skill-tag">Mongo</span>
+                        <span class="skill-tag">Redis</span>
+                        <span class="skill-tag">ElasticSearch</span>
+                    </div>
+                </div>
+                <!-- Infrastructure & Tools Card -->
+                <div class="skill-wow-card" style="transition-delay: 0.4s;">
+                    <div class="skill-icon"><i class="fas fa-cogs"></i></div>
+                    <h3>Infrastructure & Tools</h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag">Docker</span>
+                        <span class="skill-tag">Docker-compose</span>
+                        <span class="skill-tag">Nginx</span>
+                        <span class="skill-tag">PM2</span>
+                        <span class="skill-tag">XAMPP</span>
+                        <span class="skill-tag">IIS</span>
+                        <span class="skill-tag">Kong</span>
+                    </div>
+                </div>
+                <!-- Version Control & CI/CD Card -->
+                <div class="skill-wow-card" style="transition-delay: 0.5s;">
+                    <div class="skill-icon"><i class="fas fa-code-branch"></i></div>
+                    <h3>Version Control & CI/CD</h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag">Git</span>
+                        <span class="skill-tag">GitHub</span>
+                        <span class="skill-tag">Git Action</span>
                     </div>
                 </div>
             </div>
@@ -221,112 +277,37 @@
                 <div class="timeline-item">
                     <div class="timeline-dot"></div>
                     <div class="timeline-content">
-                        <h3>Senior Backend Developer</h3>
-                        <h4>Carabao Tawandang Co.Ltd</h4>
-                        <p class="timeline-date">Aug 2022 - Present (2.8+ years)</p>
+                        <h3>Back End Senior Developer</h3>
+                        <h4>CARABAO TAWANDANG CO.LTD</h4>
+                        <p class="timeline-date">August 2022 - Present</p>
                         <p>Develop and maintain scalable backend systems to support business operations. Collaborate with frontend, CMS, and mobile app teams. Design microservices architectures, implement agile workflows, and conduct root cause analysis for continuous improvement. Mentor junior developers to foster professional growth and ensure adherence to best practices.</p>
-                        <div class="timeline-achievements">
-                            <h5>Key Responsibilities & Achievements:</h5>
-                            <ul>
-                                <li>• Designed and implemented microservices architecture serving 100k+ daily users</li>
-                                <li>• Reduced API response time by 40% through optimization and caching strategies</li>
-                                <li>• Led backend team of 5 developers on multiple enterprise projects</li>
-                                <li>• Implemented CI/CD pipelines reducing deployment time by 60%</li>
-                                <li>• Mentored 8+ junior developers, with 90% promotion rate</li>
-                                <li>• Conduct root cause analysis for continuous improvement</li>
-                                <li>• Ensure adherence to best practices and coding standards</li>
-                                <li>• Collaborate with cross-functional teams (Frontend, CMS, Mobile)</li>
-                            </ul>
-                        </div>
-                        <div class="timeline-tech">
-                            <span class="tech-tag">NestJS</span>
-                            <span class="tech-tag">TypeScript</span>
-                            <span class="tech-tag">PostgreSQL</span>
-                            <span class="tech-tag">Redis</span>
-                            <span class="tech-tag">Docker</span>
-                            <span class="tech-tag">Kong</span>
-                        </div>
                     </div>
                 </div>
                 <div class="timeline-item">
                     <div class="timeline-dot"></div>
                     <div class="timeline-content">
-                        <h3>Software Developer</h3>
-                        <h4>Charoen Pokphand Group Co. Ltd (CPG) - Sustainability Unit</h4>
-                        <p class="timeline-date">Apr 2021 - Aug 2022 (1.4 years)</p>
+                        <h3>Soft Ware Developer</h3>
+                        <h4>CHAROEN POKPHAND GROUP CO.LTD (CPG)</h4>
+                        <p class="timeline-date">April 2021 - August 2022</p>
                         <p>Design and develop web applications within the Sustainability Unit. Implement governance policies and track compliance across regional and global levels, including China, Malaysia, and Taiwan. Collaborate with stakeholders to create applications aligned with sustainability goals.</p>
-                        <div class="timeline-achievements">
-                            <h5>Key Responsibilities & Achievements:</h5>
-                            <ul>
-                                <li>• Developed global sustainability tracking platform for 15+ countries</li>
-                                <li>• Built compliance dashboard processing 10k+ daily transactions</li>
-                                <li>• Integrated with SAP and Oracle systems for data synchronization</li>
-                                <li>• Implemented real-time reporting reducing manual work by 70%</li>
-                                <li>• Collaborated with international teams across 4 time zones</li>
-                                <li>• Track compliance across China, Malaysia, and Taiwan</li>
-                                <li>• Implement governance policies for sustainability goals</li>
-                                <li>• Create applications aligned with corporate sustainability objectives</li>
-                            </ul>
-                        </div>
-                        <div class="timeline-tech">
-                            <span class="tech-tag">React</span>
-                            <span class="tech-tag">Node.js</span>
-                            <span class="tech-tag">MongoDB</span>
-                            <span class="tech-tag">Elasticsearch</span>
-                            <span class="tech-tag">SAP Integration</span>
-                        </div>
                     </div>
                 </div>
                 <div class="timeline-item">
                     <div class="timeline-dot"></div>
                     <div class="timeline-content">
                         <h3>Full Stack Developer</h3>
-                        <h4>Carabao Tawandang Co.Ltd</h4>
-                        <p class="timeline-date">Apr 2019 - Apr 2021 (2 years)</p>
+                        <h4>CARABAO TAWANDANG CO.LTD</h4>
+                        <p class="timeline-date">April 2019 - April 2021</p>
                         <p>Developed and maintained the ERP system for CBD, focusing on both frontend and backend tasks, including creating user-friendly interfaces, backend functionalities, and ensuring seamless system integration. Collaborated with team members to enhance cross-platform compatibility and user experience, providing ongoing support and maintenance.</p>
-                        <div class="timeline-achievements">
-                            <h5>Key Achievements:</h5>
-                            <ul>
-                                <li>• Built complete ERP system handling inventory, sales, and finance modules</li>
-                                <li>• Developed RESTful APIs serving 500+ concurrent users</li>
-                                <li>• Created responsive web interface with Vue.js reducing load time by 50%</li>
-                                <li>• Implemented automated testing achieving 85% code coverage</li>
-                                <li>• Managed database migrations and optimization for 1M+ records</li>
-                            </ul>
-                        </div>
-                        <div class="timeline-tech">
-                            <span class="tech-tag">Vue.js</span>
-                            <span class="tech-tag">PHP Laravel</span>
-                            <span class="tech-tag">MySQL</span>
-                            <span class="tech-tag">JavaScript</span>
-                            <span class="tech-tag">Bootstrap</span>
-                        </div>
                     </div>
                 </div>
                 <div class="timeline-item">
                     <div class="timeline-dot"></div>
                     <div class="timeline-content">
                         <h3>Junior Developer (Contract 6 Month)</h3>
-                        <h4>Professional Computer Co.Ltd (PCC)</h4>
-                        <p class="timeline-date">Nov 2018 - Apr 2019 (6 months)</p>
+                        <h4>PROFESSIONAL COMPUTER CO.LTD</h4>
+                        <p class="timeline-date">November 2018 - April 2019</p>
                         <p>Developed and optimized the Wht service system software, implemented solutions to enhance system maintenance, and resolved existing issues. Additionally, prepared detailed reports during my tenure at PROFESSIONAL COMPUTER CO. LTD (PCC) for the Phayathai Revenue Department.</p>
-                        <div class="timeline-achievements">
-                            <h5>Key Achievements:</h5>
-                            <ul>
-                                <li>• Developed WHT (Withholding Tax) service system for government sector</li>
-                                <li>• Optimized database queries reducing processing time by 30%</li>
-                                <li>• Fixed 50+ critical bugs and security vulnerabilities</li>
-                                <li>• Created comprehensive documentation and user manuals</li>
-                                <li>• Successfully delivered project on time and within budget</li>
-                            </ul>
-                        </div>
-                        <div class="timeline-tech">
-                            <span class="tech-tag">PHP</span>
-                            <span class="tech-tag">CodeIgniter</span>
-                            <span class="tech-tag">MySQL</span>
-                            <span class="tech-tag">jQuery</span>
-                            <span class="tech-tag">HTML/CSS</span>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -338,138 +319,60 @@
             <h2 class="section-title">My Projects</h2>
             <div class="project-filters">
                 <button class="filter-btn active" data-filter="all">ALL_PROJECTS</button>
-                <button class="filter-btn" data-filter="healthcare">HEALTHCARE</button>
-                <button class="filter-btn" data-filter="enterprise">ENTERPRISE</button>
-                <button class="filter-btn" data-filter="backend">BACKEND_SYSTEMS</button>
-                <button class="filter-btn" data-filter="fullstack">FULL_STACK</button>
             </div>
             <div class="projects-grid">
-                <div class="project-card" data-category="healthcare">
+                <!-- GitHub Projects Auto-Generated -->
+                <div class="project-card" data-category="github">
                     <div class="project-img">
-                        <img src="assets/images/medical-equipment.jpg" alt="Medical Equipment System">
+                        <img src="https://opengraph.githubassets.com/1/tum-nan-thailand/sorsery" alt="sorsery" onerror="this.onerror=null;this.src='assets/images/portfolio-default.png';">
                     </div>
                     <div class="project-info">
                         <div class="project-header">
-                            <h3>MEDICAL_EQUIPMENT_SYSTEM</h3>
-                            <span class="project-id">#MES-001</span>
+                            <h3>sorsery</h3>
+                            <span class="project-id">#GitHub</span>
                         </div>
-                        <p>Medical equipment borrowing system developed for Nan Hospital. Streamlines equipment tracking, borrowing requests, and inventory management for healthcare professionals. Capstone project showcasing full-stack development skills.</p>
+                        <p>Node.js library that simplifies transforming streams, supporting asynchronous, out-of-order, and parallel processing. It allows you to manipulate data streams in an efficient and scalable way.</p>
                         <div class="project-meta">
-                            <span class="project-tech">TECH: PHP, MySQL, JavaScript, Bootstrap</span>
-                            <span class="project-status">Status: Deployed & Active</span>
+                            <span class="project-tech">TECH: JavaScript, Node.js</span>
                         </div>
                         <div class="project-links">
-                            <a href="#" target="_blank"><i class="fas fa-external-link-alt"></i> VIEW_DEMO</a>
-                            <a href="#" target="_blank"><i class="fab fa-github"></i> SOURCE</a>
+                            <a href="https://github.com/tum-nan-thailand/sorsery" target="_blank"><i class="fab fa-github"></i> VIEW ON GITHUB</a>
                         </div>
                     </div>
                 </div>
-                <div class="project-card" data-category="enterprise">
+                <div class="project-card" data-category="github">
                     <div class="project-img">
-                        <img src="assets/images/erp-system.jpg" alt="Carabao ERP System">
+                        <img src="https://opengraph.githubassets.com/1/tum-nan-thailand/My-Job-Tracker" alt="My-Job-Tracker" onerror="this.onerror=null;this.src='assets/images/portfolio-default.png';">
                     </div>
                     <div class="project-info">
                         <div class="project-header">
-                            <h3>CARABAO_ERP_SYSTEM</h3>
-                            <span class="project-id">#CBD-042</span>
+                            <h3>My-Job-Tracker</h3>
+                            <span class="project-id">#GitHub</span>
                         </div>
-                        <p>Enterprise Resource Planning system for Carabao Tawandang. Full-stack development including user-friendly interfaces, backend functionalities, and seamless system integration with cross-platform compatibility.</p>
+                        <p>The application is designed to help users manage and track their job applications efficiently.</p>
                         <div class="project-meta">
-                            <span class="project-tech">TECH: Node.js, Vue.js, PostgreSQL, Docker</span>
-                            <span class="project-status">Status: Production</span>
+                            <span class="project-tech">TECH: TypeScript</span>
                         </div>
                         <div class="project-links">
-                            <a href="#" target="_blank"><i class="fas fa-external-link-alt"></i> ENTERPRISE</a>
-                            <a href="#" target="_blank"><i class="fas fa-lock"></i> PRIVATE</a>
+                            <a href="https://github.com/tum-nan-thailand/My-Job-Tracker" target="_blank"><i class="fab fa-github"></i> VIEW ON GITHUB</a>
                         </div>
                     </div>
                 </div>
-                <div class="project-card" data-category="backend">
+                <div class="project-card" data-category="github">
                     <div class="project-img">
-                        <img src="assets/images/microservices.jpg" alt="Microservices Architecture">
+                        <img src="https://opengraph.githubassets.com/1/tum-nan-thailand/git-easy" alt="git-easy" onerror="this.onerror=null;this.src='assets/images/portfolio-default.png';">
                     </div>
                     <div class="project-info">
                         <div class="project-header">
-                            <h3>MICROSERVICES_BACKEND</h3>
-                            <span class="project-id">#MSA-117</span>
+                            <h3>git-easy</h3>
+                            <span class="project-id">#GitHub</span>
                         </div>
-                        <p>Scalable microservices architecture for enterprise applications. Designed and implemented using NestJS, TypeScript, and containerization with Docker. Features API Gateway, service discovery, and monitoring.</p>
+                        <p>Git Easy: คู่มือ Git ภาษาไทยที่เข้าใจง่าย มีตัวอย่าง สถานการณ์จำลอง และแนวทางแก้ปัญหา ครอบคลุมทั้ง Git Flow, การแก้ไขปัญหาขั้นสูง และการจัดการ Version Release</p>
                         <div class="project-meta">
-                            <span class="project-tech">TECH: NestJS, TypeScript, Docker, Kong, Redis</span>
-                            <span class="project-status">Status: Scaling 100k+ Users</span>
+                            <span class="project-tech">TECH: Markdown, Documentation</span>
                         </div>
                         <div class="project-links">
-                            <a href="#" target="_blank"><i class="fas fa-external-link-alt"></i> ARCHITECTURE</a>
-                            <a href="#" target="_blank"><i class="fab fa-github"></i> DOCS</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="project-card" data-category="enterprise">
-                    <div class="project-img">
-                        <img src="assets/images/sustainability.jpg" alt="CPG Sustainability Platform">
-                    </div>
-                    <div class="project-info">
-                        <div class="project-header">
-                            <h3>CPG_SUSTAINABILITY_PLATFORM</h3>
-                            <span class="project-id">#CPG-404</span>
-                        </div>
-                        <p>Global sustainability tracking platform for Charoen Pokphand Group. Implements governance policies and compliance tracking across regional and global levels including China, Malaysia, and Taiwan.</p>
-                        <div class="project-meta">
-                            <span class="project-tech">TECH: React, Node.js, MongoDB, Elasticsearch</span>
-                            <span class="project-status">Status: Multi-Region Active</span>
-                        </div>
-                        <div class="project-links">
-                            <a href="#" target="_blank"><i class="fas fa-external-link-alt"></i> PLATFORM</a>
-                            <a href="#" target="_blank"><i class="fas fa-globe"></i> GLOBAL</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="project-card" data-category="fullstack">
-                    <div class="project-img">
-                        <img src="assets/images/wht-system.jpg" alt="WHT Service System">
-                    </div>
-                    <div class="project-info">
-                        <div class="project-header">
-                            <h3>WHT_SERVICE_SYSTEM</h3>
-                            <span class="project-id">#WHT-001</span>
-                        </div>
-                        <p>Withholding Tax service system for Phayathai Revenue Department. Developed and optimized software solutions to enhance system maintenance and resolve existing issues with detailed reporting capabilities.</p>
-                        <div class="project-meta">
-                            <span class="project-tech">TECH: PHP, Laravel, MySQL, JavaScript</span>
-                            <span class="project-status">Status: Government Production</span>
-                        </div>
-                        <div class="project-links">
-                            <a href="#" target="_blank"><i class="fas fa-external-link-alt"></i> GOVERNMENT</a>
-                            <a href="#" target="_blank"><i class="fas fa-file-alt"></i> REPORTS</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="project-card" data-category="backend">
-                    <div class="project-img">
-                        <img src="assets/images/api-gateway.jpg" alt="API Gateway System">
-                    </div>
-                    <div class="project-info">
-                        <div class="project-header">
-                            <h3>API_GATEWAY_SYSTEM</h3>
-                            <span class="project-id">#API-789</span>
-                        </div>
-                        <p>High-performance API Gateway using Kong and microservices architecture. Implements rate limiting, authentication, load balancing, and monitoring for enterprise applications with 99.9% uptime.</p>
-                        <div class="project-meta">
-                            <span class="project-tech">TECH: Kong, NestJS, Redis, PostgreSQL, Nginx</span>
-                            <span class="project-status">Status: 99.9% Uptime</span>
-                        </div>
-                        <div class="project-links">
-                            <a href="#" target="_blank"><i class="fas fa-external-link-alt"></i> GATEWAY</a>
-                            <a href="#" target="_blank"><i class="fas fa-chart-line"></i> METRICS</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-                            <span class="project-tech">TECH: WormholeVR, EventHorizon, QuantumRender</span>
-                        </div>
-                        <div class="project-links">
-                            <a href="#" target="_blank"><i class="fas fa-external-link-alt"></i> ACCESS</a>
-                            <a href="#" target="_blank"><i class="fab fa-github"></i> SOURCE</a>
+                            <a href="https://github.com/tum-nan-thailand/git-easy" target="_blank"><i class="fab fa-github"></i> VIEW ON GITHUB</a>
                         </div>
                     </div>
                 </div>
@@ -486,289 +389,8 @@
                     <div class="timeline-content">
                         <h3>Bachelor of Science in Computer Science</h3>
                         <h4>Rajamangala University of Technology Nan</h4>
-                        <p class="timeline-date">2014 - 2018</p>
-                        <p>Graduated with GPA: 3.19. Focused on software development, database systems, and computer programming. Completed capstone project: Medical Equipment Borrowing System for Nan Hospital.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="languages" class="languages">
-        <div class="container">
-            <h2 class="section-title">Languages & Soft Skills</h2>
-            <div class="languages-content">
-                <div class="languages-grid">
-                    <div class="language-category">
-                        <h3>Languages</h3>
-                        <div class="language-items">
-                            <div class="language-item">
-                                <div class="language-info">
-                                    <span class="language-name">Thai</span>
-                                    <span class="language-level">Native</span>
-                                </div>
-                                <div class="language-bar">
-                                    <div class="language-progress" style="width: 100%"></div>
-                                </div>
-                            </div>
-                            <div class="language-item">
-                                <div class="language-info">
-                                    <span class="language-name">English</span>
-                                    <span class="language-level">Professional</span>
-                                </div>
-                                <div class="language-bar">
-                                    <div class="language-progress" style="width: 80%"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="language-category">
-                        <h3>Soft Skills</h3>
-                        <div class="soft-skills-grid">
-                            <div class="soft-skill-item">
-                                <i class="fas fa-users"></i>
-                                <span>Team Leadership</span>
-                            </div>
-                            <div class="soft-skill-item">
-                                <i class="fas fa-lightbulb"></i>
-                                <span>Problem Solving</span>
-                            </div>
-                            <div class="soft-skill-item">
-                                <i class="fas fa-comments"></i>
-                                <span>Communication</span>
-                            </div>
-                            <div class="soft-skill-item">
-                                <i class="fas fa-project-diagram"></i>
-                                <span>Project Management</span>
-                            </div>
-                            <div class="soft-skill-item">
-                                <i class="fas fa-brain"></i>
-                                <span>Critical Thinking</span>
-                            </div>
-                            <div class="soft-skill-item">
-                                <i class="fas fa-handshake"></i>
-                                <span>Mentoring</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="certifications" class="certifications">
-        <div class="container">
-            <h2 class="section-title">Certifications & Achievements</h2>
-            <div class="cert-grid">
-                <div class="cert-item clickable-cert" data-cert="backend-expert">
-                    <div class="cert-icon">
-                        <i class="fas fa-code"></i>
-                    </div>
-                    <div class="cert-info">
-                        <h3>Backend Development Expert</h3>
-                        <p>6+ years of hands-on experience in backend development</p>
-                        <span class="cert-year">2018-2025</span>
-                    </div>
-                    <div class="cert-view-btn">
-                        <i class="fas fa-eye"></i> View Certificate
-                    </div>
-                </div>
-                <div class="cert-item clickable-cert" data-cert="database-expert">
-                    <div class="cert-icon">
-                        <i class="fas fa-database"></i>
-                    </div>
-                    <div class="cert-info">
-                        <h3>Database Management</h3>
-                        <p>Expert in PostgreSQL, MySQL, MongoDB, and Redis</p>
-                        <span class="cert-year">Professional</span>
-                    </div>
-                    <div class="cert-view-btn">
-                        <i class="fas fa-eye"></i> View Certificate
-                    </div>
-                </div>
-                <div class="cert-item clickable-cert" data-cert="devops-expert">
-                    <div class="cert-icon">
-                        <i class="fab fa-docker"></i>
-                    </div>
-                    <div class="cert-info">
-                        <h3>DevOps & Containerization</h3>
-                        <p>Docker, Docker-compose, Nginx, Kong Gateway</p>
-                        <span class="cert-year">Advanced</span>
-                    </div>
-                    <div class="cert-view-btn">
-                        <i class="fas fa-eye"></i> View Certificate
-                    </div>
-                </div>
-                <div class="cert-item clickable-cert" data-cert="microservices-expert">
-                    <div class="cert-icon">
-                        <i class="fas fa-project-diagram"></i>
-                    </div>
-                    <div class="cert-info">
-                        <h3>Microservices Architecture</h3>
-                        <p>Design and implementation of scalable systems</p>
-                        <span class="cert-year">Senior Level</span>
-                    </div>
-                    <div class="cert-view-btn">
-                        <i class="fas fa-eye"></i> View Certificate
-                    </div>
-                </div>
-                <div class="cert-item clickable-cert" data-cert="javascript-expert">
-                    <div class="cert-icon">
-                        <i class="fab fa-js-square"></i>
-                    </div>
-                    <div class="cert-info">
-                        <h3>JavaScript & TypeScript</h3>
-                        <p>Advanced JavaScript and TypeScript development</p>
-                        <span class="cert-year">Expert Level</span>
-                    </div>
-                    <div class="cert-view-btn">
-                        <i class="fas fa-eye"></i> View Certificate
-                    </div>
-                </div>
-                <div class="cert-item clickable-cert" data-cert="cloud-expert">
-                    <div class="cert-icon">
-                        <i class="fas fa-cloud"></i>
-                    </div>
-                    <div class="cert-info">
-                        <h3>Cloud Architecture</h3>
-                        <p>AWS, Azure cloud services and deployment</p>
-                        <span class="cert-year">Professional</span>
-                    </div>
-                    <div class="cert-view-btn">
-                        <i class="fas fa-eye"></i> View Certificate
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Certificate Modal -->
-    <div id="certificateModal" class="cert-modal">
-        <div class="cert-modal-content">
-            <div class="cert-modal-header">
-                <h3 id="certModalTitle">Certificate</h3>
-                <span class="cert-close">&times;</span>
-            </div>
-            <div class="cert-modal-body">
-                <div class="cert-display-options">
-                    <div class="cert-view-tabs">
-                        <button class="cert-tab active" data-tab="image">
-                            <i class="fas fa-image"></i> Image View
-                        </button>
-                        <button class="cert-tab" data-tab="pdf">
-                            <i class="fas fa-file-pdf"></i> PDF View
-                        </button>
-                    </div>
-                </div>
-                
-                <div class="cert-content">
-                    <div id="cert-image-view" class="cert-view active">
-                        <img id="certModalImage" src="" alt="Certificate" />
-                    </div>
-                    
-                    <div id="cert-pdf-view" class="cert-view">
-                        <iframe id="certModalPDF" src="" title="Certificate PDF Viewer" style="border: none;"></iframe>
-                        <div class="pdf-fallback" style="display: none;">
-                            <i class="fas fa-file-pdf"></i>
-                            <p>PDF viewer not supported. Use the download button below.</p>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="cert-modal-loading">
-                    <i class="fas fa-spinner fa-spin"></i>
-                    <p>Loading certificate...</p>
-                </div>
-                <div class="cert-modal-error" style="display: none;">
-                    <i class="fas fa-exclamation-triangle"></i>
-                    <p>Certificate not found. Please check back later.</p>
-                </div>
-            </div>
-            <div class="cert-modal-footer">
-                <button class="cert-download-btn" id="certDownloadBtn">
-                    <i class="fas fa-download"></i> Download Certificate
-                </button>
-                <button class="cert-view-original-btn" id="certViewOriginalBtn">
-                    <i class="fas fa-external-link-alt"></i> View Original
-                </button>
-            </div>
-        </div>
-    </div>
-
-    <section id="achievements" class="achievements">
-        <div class="container">
-            <h2 class="section-title">Professional Achievements</h2>
-            <div class="stats-grid">
-                <div class="stat-item">
-                    <div class="stat-icon">
-                        <i class="fas fa-calendar-check"></i>
-                    </div>
-                    <div class="stat-number" data-target="6">0</div>
-                    <div class="stat-label">Years Experience</div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-icon">
-                        <i class="fas fa-project-diagram"></i>
-                    </div>
-                    <div class="stat-number" data-target="50">0</div>
-                    <div class="stat-label">Projects Completed</div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-icon">
-                        <i class="fas fa-users"></i>
-                    </div>
-                    <div class="stat-number" data-target="100000">0</div>
-                    <div class="stat-label">Daily Active Users</div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-icon">
-                        <i class="fas fa-server"></i>
-                    </div>
-                    <div class="stat-number" data-target="99.9">0</div>
-                    <div class="stat-label">System Uptime %</div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-icon">
-                        <i class="fas fa-code"></i>
-                    </div>
-                    <div class="stat-number" data-target="15">0</div>
-                    <div class="stat-label">Technologies Mastered</div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-icon">
-                        <i class="fas fa-graduation-cap"></i>
-                    </div>
-                    <div class="stat-number" data-target="8">0</div>
-                    <div class="stat-label">Developers Mentored</div>
-                </div>
-            </div>
-            
-            <div class="achievements-list">
-                <h3>Key Milestones</h3>
-                <div class="milestone-grid">
-                    <div class="milestone-item">
-                        <div class="milestone-year">2024</div>
-                        <div class="milestone-desc">Led microservices migration serving 100k+ users</div>
-                    </div>
-                    <div class="milestone-item">
-                        <div class="milestone-year">2023</div>
-                        <div class="milestone-desc">Promoted to Senior Backend Developer</div>
-                    </div>
-                    <div class="milestone-item">
-                        <div class="milestone-year">2022</div>
-                        <div class="milestone-desc">Implemented CI/CD reducing deployment time by 60%</div>
-                    </div>
-                    <div class="milestone-item">
-                        <div class="milestone-year">2021</div>
-                        <div class="milestone-desc">Developed global sustainability platform for CPG</div>
-                    </div>
-                    <div class="milestone-item">
-                        <div class="milestone-year">2019</div>
-                        <div class="milestone-desc">Built complete ERP system for Carabao</div>
-                    </div>
-                    <div class="milestone-item">
-                        <div class="milestone-year">2018</div>
-                        <div class="milestone-desc">Graduated with Medical Equipment System project</div>
+                        <p class="timeline-date">Graduation Year: 2018 | GPA: 3.19</p>
+                        <p><strong>Project:</strong> Medical Equipment Borrowing System, Nan Hospital</p>
                     </div>
                 </div>
             </div>
@@ -784,31 +406,23 @@
                         <i class="fas fa-envelope"></i>
                         <div>
                             <h3>Email</h3>
-                            <p>punthaweeso@gmail.com</p>
+                            <p><a href="mailto:punthaweeso@gmail.com">punthaweeso@gmail.com</a></p>
                         </div>
                     </div>
-                    <div class="contact-item">
+                     <div class="contact-item">
                         <i class="fas fa-phone"></i>
                         <div>
                             <h3>Phone</h3>
                             <p>+66-90-972-4819</p>
                         </div>
                     </div>
-                    <div class="contact-item">
-                        <i class="fas fa-map-marker-alt"></i>
-                        <div>
-                            <h3>Location</h3>
-                            <p>Bang Yi Ruea Subdistrict, Thon Buri District, Bangkok, 10600</p>
-                        </div>
-                    </div>
                     <div class="social-icons">
-                        <a href="https://linkedin.com/in/punthawee-sorseang" target="_blank"><i class="fab fa-linkedin"></i></a>
+                        <a href="https://www.linkedin.com/in/punthawee-sorseang-0775ba1b3" target="_blank"><i class="fab fa-linkedin"></i></a>
                         <a href="https://github.com/punthawee" target="_blank"><i class="fab fa-github"></i></a>
-                        <a href="mailto:punthaweeso@gmail.com"><i class="fas fa-envelope"></i></a>
                     </div>
                 </div>
                 <div class="contact-form">
-                    <form id="contactForm">
+                    <form id="contactForm" action="https://formspree.io/f/your_form_id" method="POST">
                         <div class="form-group">
                             <input type="text" id="name" name="name" placeholder="Your Name" required>
                         </div>
@@ -840,5 +454,54 @@
     </a>
 
     <script src="js/main.js"></script>
+    
+    <!-- CONSOLIDATED SCRIPTS -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // WOW SKILLS SCRIPT
+            const skillCards = document.querySelectorAll('.skill-wow-card');
+            const skillsObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('in-view');
+                    }
+                });
+            }, {
+                threshold: 0.1
+            });
+            skillCards.forEach(card => {
+                skillsObserver.observe(card);
+            });
+
+            // THEME TOGGLE SCRIPT
+            const themeToggle = document.querySelector('.theme-toggle');
+            const themeIcon = themeToggle.querySelector('i');
+            const body = document.body;
+
+            const applyTheme = (theme) => {
+                if (theme === 'dark') {
+                    body.classList.add('dark-mode');
+                    themeIcon.classList.remove('fa-sun');
+                    themeIcon.classList.add('fa-moon');
+                } else {
+                    body.classList.remove('dark-mode');
+                    themeIcon.classList.remove('fa-moon');
+                    themeIcon.classList.add('fa-sun');
+                }
+            };
+
+            // On page load, check for saved theme. Default to dark if none found.
+            const savedTheme = localStorage.getItem('theme') || 'dark';
+            applyTheme(savedTheme);
+
+            // Add click listener for the toggle button
+            themeToggle.addEventListener('click', () => {
+                const isDarkMode = body.classList.contains('dark-mode');
+                const newTheme = isDarkMode ? 'light' : 'dark';
+                localStorage.setItem('theme', newTheme);
+                applyTheme(newTheme);
+            });
+        });
+    </script>
 </body>
 </html>
