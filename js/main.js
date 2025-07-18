@@ -137,6 +137,7 @@ filterBtns.forEach(btn => {
         projectCards.forEach(card => {
             if (filter === 'all' || card.getAttribute('data-category') === filter) {
                 card.style.display = 'block';
+                card.style.animation = 'fadeInUp 0.6s ease forwards';
             } else {
                 card.style.display = 'none';
             }
@@ -209,6 +210,55 @@ function animateOnScroll() {
         }
     }
 }
+
+// Counter animation for statistics
+function animateCounters() {
+    const counters = document.querySelectorAll('.stat-number');
+    
+    counters.forEach(counter => {
+        const target = parseInt(counter.getAttribute('data-target'));
+        const increment = target / 100;
+        let current = 0;
+        
+        const timer = setInterval(() => {
+            current += increment;
+            if (current >= target) {
+                current = target;
+                clearInterval(timer);
+            }
+            
+            // Format number based on target
+            if (target >= 100000) {
+                counter.textContent = Math.floor(current).toLocaleString() + '+';
+            } else if (target === 99.9) {
+                counter.textContent = current.toFixed(1) + '%';
+            } else {
+                counter.textContent = Math.floor(current) + '+';
+            }
+        }, 20);
+    });
+}
+
+// Check if achievements section is in viewport
+function checkAchievementsInView() {
+    const achievementsSection = document.querySelector('#achievements');
+    if (!achievementsSection) return;
+    
+    const rect = achievementsSection.getBoundingClientRect();
+    const isInView = rect.top >= 0 && rect.top <= window.innerHeight;
+    
+    if (isInView && !achievementsSection.classList.contains('animated')) {
+        achievementsSection.classList.add('animated');
+        animateCounters();
+    }
+}
+
+// Add to scroll event listener
+const originalAnimateOnScroll = window.animateOnScroll || function() {};
+window.animateOnScroll = function() {
+    originalAnimateOnScroll();
+    checkAchievementsInView();
+};
 
 // Form submission (you'll need to implement your own backend or use a service like Formspree)
 if (contactForm) {
@@ -402,3 +452,280 @@ function setActiveNavLink() {
         });
     });
 }
+
+// Certificate Modal Functionality
+const certificateModal = document.getElementById('certificateModal');
+const certModalTitle = document.getElementById('certModalTitle');
+const certModalImage = document.getElementById('certModalImage');
+const certModalPDF = document.getElementById('certModalPDF');
+const certModalLoading = document.querySelector('.cert-modal-loading');
+const certModalError = document.querySelector('.cert-modal-error');
+const certDownloadBtn = document.getElementById('certDownloadBtn');
+const certViewOriginalBtn = document.getElementById('certViewOriginalBtn');
+const certCloseBtn = document.querySelector('.cert-close');
+
+// Tab functionality
+let currentTab = 'image';
+let currentCertData = null;
+
+// Certificate data mapping
+const certificateData = {
+    'backend-expert': {
+        title: 'Backend Development Expert Certificate',
+        image: 'assets/certificates/backend-expert.jpg',
+        pdf: 'assets/certificates/backend-expert.pdf'
+    },
+    'database-expert': {
+        title: 'Database Management Certificate',
+        image: 'assets/certificates/database-expert.jpg',
+        pdf: 'assets/certificates/database-expert.pdf'
+    },
+    'devops-expert': {
+        title: 'DevOps & Containerization Certificate',
+        image: 'assets/certificates/devops-expert.jpg',
+        pdf: 'assets/certificates/devops-expert.pdf'
+    },
+    'microservices-expert': {
+        title: 'Microservices Architecture Certificate',
+        image: 'assets/certificates/microservices-expert.jpg',
+        pdf: 'assets/certificates/microservices-expert.pdf'
+    },
+    'javascript-expert': {
+        title: 'JavaScript & TypeScript Certificate',
+        image: 'assets/certificates/javascript-expert.jpg',
+        pdf: 'assets/certificates/javascript-expert.pdf'
+    },
+    'cloud-expert': {
+        title: 'Cloud Architecture Certificate',
+        image: 'assets/certificates/cloud-expert.jpg',
+        pdf: 'assets/certificates/cloud-expert.pdf'
+    }
+};
+
+// Open certificate modal
+function openCertificateModal(certId) {
+    const cert = certificateData[certId];
+    if (!cert) return;
+
+    currentCertData = cert;
+    
+    // Reset modal state
+    certModalTitle.textContent = cert.title;
+    resetModalViews();
+    certModalLoading.style.display = 'flex';
+    certModalError.style.display = 'none';
+
+    // Show modal
+    certificateModal.style.display = 'block';
+    document.body.style.overflow = 'hidden';
+
+    // Set active tab to image by default
+    setActiveTab('image');
+    
+    // Load content based on current tab
+    loadCertificateContent();
+
+    // Set up download and view buttons
+    certDownloadBtn.onclick = function() {
+        checkFileExists(cert.pdf) ? downloadCertificate(cert.pdf, cert.title) : showFileNotFoundAlert('PDF');
+    };
+    
+    certViewOriginalBtn.onclick = function() {
+        checkFileExists(cert.pdf) ? window.open(cert.pdf, '_blank') : showFileNotFoundAlert('PDF');
+    };
+}
+
+// Reset modal views
+function resetModalViews() {
+    document.querySelectorAll('.cert-view').forEach(view => {
+        view.classList.remove('active');
+    });
+    certModalImage.style.display = 'none';
+    certModalImage.classList.remove('loaded');
+    certModalPDF.src = '';
+    document.querySelector('.pdf-fallback').style.display = 'none';
+}
+
+// Set active tab
+function setActiveTab(tabName) {
+    currentTab = tabName;
+    
+    // Update tab buttons
+    document.querySelectorAll('.cert-tab').forEach(tab => {
+        tab.classList.remove('active');
+    });
+    document.querySelector(`[data-tab="${tabName}"]`).classList.add('active');
+    
+    // Update views
+    document.querySelectorAll('.cert-view').forEach(view => {
+        view.classList.remove('active');
+    });
+    document.getElementById(`cert-${tabName}-view`).classList.add('active');
+    
+    // Load content for current tab
+    if (currentCertData) {
+        loadCertificateContent();
+    }
+}
+
+// Load certificate content based on current tab
+function loadCertificateContent() {
+    if (!currentCertData) return;
+    
+    certModalLoading.style.display = 'flex';
+    certModalError.style.display = 'none';
+    
+    if (currentTab === 'image') {
+        loadImageContent();
+    } else if (currentTab === 'pdf') {
+        loadPDFContent();
+    }
+}
+
+// Load image content
+function loadImageContent() {
+    const img = new Image();
+    img.onload = function() {
+        certModalLoading.style.display = 'none';
+        certModalImage.src = this.src;
+        certModalImage.style.display = 'block';
+        certModalImage.classList.add('loaded');
+    };
+    
+    img.onerror = function() {
+        // Try fallback placeholder
+        const placeholderImg = new Image();
+        placeholderImg.onload = function() {
+            certModalLoading.style.display = 'none';
+            certModalImage.src = 'assets/certificates/certificate-placeholder.svg';
+            certModalImage.style.display = 'block';
+            certModalImage.classList.add('loaded');
+            showPlaceholderMessage();
+        };
+        
+        placeholderImg.onerror = function() {
+            certModalLoading.style.display = 'none';
+            showErrorMessage('Certificate image not found. Please add certificate files to the assets/certificates/ folder.');
+        };
+        
+        placeholderImg.src = 'assets/certificates/certificate-placeholder.svg';
+    };
+    
+    img.src = currentCertData.image;
+}
+
+// Load PDF content
+function loadPDFContent() {
+    // Check if PDF exists by trying to load it
+    const testPDF = new XMLHttpRequest();
+    testPDF.open('HEAD', currentCertData.pdf, true);
+    
+    testPDF.onload = function() {
+        if (testPDF.status === 200) {
+            certModalLoading.style.display = 'none';
+            certModalPDF.src = currentCertData.pdf;
+            
+            // Check if browser supports PDF viewing
+            certModalPDF.onload = function() {
+                // PDF loaded successfully
+            };
+            
+            certModalPDF.onerror = function() {
+                // PDF viewer not supported, show fallback
+                document.querySelector('.pdf-fallback').style.display = 'flex';
+            };
+        } else {
+            // PDF not found, try to show placeholder or error
+            certModalLoading.style.display = 'none';
+            showErrorMessage('PDF certificate not found. Please add PDF files to the assets/certificates/ folder.');
+        }
+    };
+    
+    testPDF.onerror = function() {
+        // PDF not found, show error
+        certModalLoading.style.display = 'none';
+        showErrorMessage('PDF certificate not found. Please add PDF files to the assets/certificates/ folder.');
+    };
+    
+    testPDF.send();
+}
+
+// Show placeholder message
+function showPlaceholderMessage() {
+    const errorDiv = document.querySelector('.cert-modal-error p');
+    errorDiv.textContent = 'Showing placeholder certificate. Upload actual certificate files to see the real certificates.';
+    certModalError.style.display = 'flex';
+    certModalError.style.backgroundColor = '#fef3c7';
+    certModalError.style.color = '#92400e';
+    certModalError.querySelector('i').className = 'fas fa-info-circle';
+}
+
+// Show error message
+function showErrorMessage(message) {
+    certModalError.style.display = 'flex';
+    certModalError.style.backgroundColor = '#fee2e2';
+    certModalError.style.color = '#991b1b';
+    certModalError.querySelector('i').className = 'fas fa-exclamation-triangle';
+    const errorDiv = document.querySelector('.cert-modal-error p');
+    errorDiv.textContent = message;
+}
+
+// Close certificate modal
+function closeCertificateModal() {
+    certificateModal.style.display = 'none';
+    document.body.style.overflow = 'auto';
+}
+
+// Download certificate
+function downloadCertificate(url, title) {
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = title.replace(/\s+/g, '_') + '.pdf';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+}
+
+// Check if file exists (basic check)
+function checkFileExists(url) {
+    // For now, we'll always return true and let the browser handle the error
+    // In a real implementation, you might want to do an actual HTTP HEAD request
+    return true;
+}
+
+// Show file not found alert
+function showFileNotFoundAlert(fileType) {
+    alert(`${fileType} file not found. Please add the certificate files to the assets/certificates/ folder. See the certificate-generator.html for instructions.`);
+}
+
+// Event listeners for certificate items
+document.querySelectorAll('.clickable-cert').forEach(cert => {
+    cert.addEventListener('click', function() {
+        const certId = this.getAttribute('data-cert');
+        openCertificateModal(certId);
+    });
+});
+
+// Event listeners for tabs
+document.querySelectorAll('.cert-tab').forEach(tab => {
+    tab.addEventListener('click', function() {
+        const tabName = this.getAttribute('data-tab');
+        setActiveTab(tabName);
+    });
+});
+
+// Close modal events
+certCloseBtn.addEventListener('click', closeCertificateModal);
+
+certificateModal.addEventListener('click', function(e) {
+    if (e.target === certificateModal) {
+        closeCertificateModal();
+    }
+});
+
+// Keyboard events
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && certificateModal.style.display === 'block') {
+        closeCertificateModal();
+    }
+});

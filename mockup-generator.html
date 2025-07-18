@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Mockups Generator</title>
+    <style>
+        .mockup-container {
+            width: 400px;
+            height: 250px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            position: relative;
+            overflow: hidden;
+            margin: 20px;
+            display: inline-block;
+        }
+
+        .medical-equipment {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        }
+
+        .erp-system {
+            background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+        }
+
+        .microservices {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .sustainability {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        }
+
+        .wht-system {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        }
+
+        .api-gateway {
+            background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+        }
+
+        .mockup-header {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 15px;
+        }
+
+        .dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.3);
+        }
+
+        .dot.red { background: #ff5f57; }
+        .dot.yellow { background: #ffbd2e; }
+        .dot.green { background: #28ca42; }
+
+        .mockup-content {
+            color: white;
+            font-family: 'Arial', sans-serif;
+        }
+
+        .mockup-title {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .mockup-subtitle {
+            font-size: 12px;
+            opacity: 0.8;
+            margin-bottom: 15px;
+        }
+
+        .mockup-features {
+            font-size: 10px;
+            opacity: 0.7;
+            line-height: 1.4;
+        }
+
+        .circuit-pattern {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100px;
+            height: 100px;
+            opacity: 0.1;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="20" cy="20" r="2" fill="white"/><circle cx="50" cy="20" r="2" fill="white"/><circle cx="80" cy="20" r="2" fill="white"/><line x1="20" y1="20" x2="50" y2="20" stroke="white" stroke-width="1"/><line x1="50" y1="20" x2="80" y2="20" stroke="white" stroke-width="1"/></svg>');
+        }
+    </style>
+</head>
+<body>
+    <h1>Project Mockups</h1>
+    
+    <div class="mockup-container medical-equipment">
+        <div class="mockup-header">
+            <div class="dot red"></div>
+            <div class="dot yellow"></div>
+            <div class="dot green"></div>
+        </div>
+        <div class="mockup-content">
+            <div class="mockup-title">Medical Equipment System</div>
+            <div class="mockup-subtitle">Healthcare Management Platform</div>
+            <div class="mockup-features">
+                • Equipment Tracking<br>
+                • Inventory Management<br>
+                • Request Processing<br>
+                • Real-time Dashboard
+            </div>
+        </div>
+        <div class="circuit-pattern"></div>
+    </div>
+
+    <div class="mockup-container erp-system">
+        <div class="mockup-header">
+            <div class="dot red"></div>
+            <div class="dot yellow"></div>
+            <div class="dot green"></div>
+        </div>
+        <div class="mockup-content">
+            <div class="mockup-title">Carabao ERP System</div>
+            <div class="mockup-subtitle">Enterprise Resource Planning</div>
+            <div class="mockup-features">
+                • Financial Management<br>
+                • Inventory Control<br>
+                • Sales Analytics<br>
+                • User Management
+            </div>
+        </div>
+        <div class="circuit-pattern"></div>
+    </div>
+
+    <div class="mockup-container microservices">
+        <div class="mockup-header">
+            <div class="dot red"></div>
+            <div class="dot yellow"></div>
+            <div class="dot green"></div>
+        </div>
+        <div class="mockup-content">
+            <div class="mockup-title">Microservices Backend</div>
+            <div class="mockup-subtitle">Scalable Architecture</div>
+            <div class="mockup-features">
+                • API Gateway<br>
+                • Service Discovery<br>
+                • Load Balancing<br>
+                • Monitoring & Logs
+            </div>
+        </div>
+        <div class="circuit-pattern"></div>
+    </div>
+
+    <div class="mockup-container sustainability">
+        <div class="mockup-header">
+            <div class="dot red"></div>
+            <div class="dot yellow"></div>
+            <div class="dot green"></div>
+        </div>
+        <div class="mockup-content">
+            <div class="mockup-title">CPG Sustainability Platform</div>
+            <div class="mockup-subtitle">Global Compliance Tracking</div>
+            <div class="mockup-features">
+                • Policy Implementation<br>
+                • Multi-region Support<br>
+                • Compliance Dashboard<br>
+                • Reporting System
+            </div>
+        </div>
+        <div class="circuit-pattern"></div>
+    </div>
+
+    <div class="mockup-container wht-system">
+        <div class="mockup-header">
+            <div class="dot red"></div>
+            <div class="dot yellow"></div>
+            <div class="dot green"></div>
+        </div>
+        <div class="mockup-content">
+            <div class="mockup-title">WHT Service System</div>
+            <div class="mockup-subtitle">Government Tax Platform</div>
+            <div class="mockup-features">
+                • Tax Processing<br>
+                • Document Management<br>
+                • Report Generation<br>
+                • System Optimization
+            </div>
+        </div>
+        <div class="circuit-pattern"></div>
+    </div>
+
+    <div class="mockup-container api-gateway">
+        <div class="mockup-header">
+            <div class="dot red"></div>
+            <div class="dot yellow"></div>
+            <div class="dot green"></div>
+        </div>
+        <div class="mockup-content">
+            <div class="mockup-title">API Gateway System</div>
+            <div class="mockup-subtitle">High-Performance Gateway</div>
+            <div class="mockup-features">
+                • Rate Limiting<br>
+                • Authentication<br>
+                • Load Balancing<br>
+                • 99.9% Uptime
+            </div>
+        </div>
+        <div class="circuit-pattern"></div>
+    </div>
+
+    <script>
+        // Instructions for taking screenshots
+        console.log('To create project images:');
+        console.log('1. Take screenshots of each mockup');
+        console.log('2. Save as: medical-equipment.jpg, erp-system.jpg, etc.');
+        console.log('3. Place in assets/images/ folder');
+    </script>
+</body>
+</html>

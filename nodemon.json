@@ -1,0 +1,22 @@
+{
+  "watch": [
+    "server.js",
+    "index.html",
+    "css/",
+    "js/",
+    "assets/"
+  ],
+  "ext": "js,html,css,json",
+  "ignore": [
+    "node_modules/",
+    "*.log",
+    ".git/"
+  ],
+  "delay": 1000,
+  "env": {
+    "NODE_ENV": "development"
+  },
+  "colours": true,
+  "verbose": true,
+  "restartable": "rs"
+}

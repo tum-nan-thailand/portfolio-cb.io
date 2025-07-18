@@ -1,0 +1,21 @@
+{
+  "name": "portfolio-cb.io",
+  "version": "1.0.0",
+  "description": "Portfolio website for Punthawee Sorseang",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon server.js",
+    "watch": "nodemon server.js"
+  },
+  "keywords": [
+    "portfolio",
+    "web",
+    "developer"
+  ],
+  "author": "Punthawee Sorseang",
+  "license": "MIT",
+  "devDependencies": {
+    "nodemon": "^3.1.10"
+  }
+}
