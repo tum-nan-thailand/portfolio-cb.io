@@ -1,6 +1,5 @@
 // DOM Elements
 const header = document.querySelector('header');
-const themeToggle = document.querySelector('.theme-toggle');
 const hamburger = document.querySelector('.hamburger');
 const navLinks = document.querySelector('.nav-links');
 const scrollTopBtn = document.querySelector('.scroll-top');
@@ -453,7 +452,9 @@ function setActiveNavLink() {
     });
 }
 
-// Certificate Modal Functionality
+
+// --- CERTIFICATE MODAL FUNCTIONALITY ---
+
 const certificateModal = document.getElementById('certificateModal');
 const certModalTitle = document.getElementById('certModalTitle');
 const certModalImage = document.getElementById('certModalImage');
@@ -461,44 +462,44 @@ const certModalPDF = document.getElementById('certModalPDF');
 const certModalLoading = document.querySelector('.cert-modal-loading');
 const certModalError = document.querySelector('.cert-modal-error');
 const certDownloadBtn = document.getElementById('certDownloadBtn');
-const certViewOriginalBtn = document.getElementById('certViewOriginalBtn');
 const certCloseBtn = document.querySelector('.cert-close');
 
-// Tab functionality
 let currentTab = 'image';
 let currentCertData = null;
 
-// Certificate data mapping
+// Certificate data mapping (using your PDF files)
 const certificateData = {
-    'backend-expert': {
-        title: 'Backend Development Expert Certificate',
-        image: 'assets/certificates/backend-expert.jpg',
-        pdf: 'assets/certificates/backend-expert.pdf'
+    'phishing-2024': {
+        title: 'Phishing Attack Training (2024)',
+        pdf: 'assets/my-cer/Phishing Attack.pdf'
     },
-    'database-expert': {
-        title: 'Database Management Certificate',
-        image: 'assets/certificates/database-expert.jpg',
-        pdf: 'assets/certificates/database-expert.pdf'
+    'ransomware-2024': {
+        title: 'Ransomware Training (2024)',
+        pdf: 'assets/my-cer/Ransomware.pdf'
     },
-    'devops-expert': {
-        title: 'DevOps & Containerization Certificate',
-        image: 'assets/certificates/devops-expert.jpg',
-        pdf: 'assets/certificates/devops-expert.pdf'
+    'incident-report-2024': {
+        title: 'Cyber Incident Reporting (2024)',
+        pdf: 'assets/my-cer/Rise Cyber Incident.pdf'
     },
-    'microservices-expert': {
-        title: 'Microservices Architecture Certificate',
-        image: 'assets/certificates/microservices-expert.jpg',
-        pdf: 'assets/certificates/microservices-expert.pdf'
+    'safe-web-2024': {
+        title: 'Safe Web Browse (2024)',
+        pdf: 'assets/my-cer/Safe Web.pdf'
     },
-    'javascript-expert': {
-        title: 'JavaScript & TypeScript Certificate',
-        image: 'assets/certificates/javascript-expert.jpg',
-        pdf: 'assets/certificates/javascript-expert.pdf'
+    'public-wifi-2024': {
+        title: 'Public Wi-Fi Security (2024)',
+        pdf: 'assets/my-cer/Public Wi-Fi.pdf'
     },
-    'cloud-expert': {
-        title: 'Cloud Architecture Certificate',
-        image: 'assets/certificates/cloud-expert.jpg',
-        pdf: 'assets/certificates/cloud-expert.pdf'
+    'password-policy-2024': {
+        title: 'Password Policy (2024)',
+        pdf: 'assets/my-cer/Password Policy.pdf'
+    },
+    'malware-2023': {
+        title: 'Malware Threats (2023)',
+        pdf: 'assets/my-cer/หลักสูตรเบื้องต้น 07 - ภัยคุกคามมัลแวร์ (Malware).pdf'
+    },
+    'computer-law-2023': {
+        title: 'Computer Law (2023)',
+        pdf: 'assets/my-cer/หลักสูตรเบื้องต้น 12 - กฎหมายคอมพิวเตอร์ .pdf'
     }
 };
 
@@ -508,73 +509,39 @@ function openCertificateModal(certId) {
     if (!cert) return;
 
     currentCertData = cert;
-    
-    // Reset modal state
+
     certModalTitle.textContent = cert.title;
     resetModalViews();
-    certModalLoading.style.display = 'flex';
-    certModalError.style.display = 'none';
 
-    // Show modal
     certificateModal.style.display = 'block';
     document.body.style.overflow = 'hidden';
 
-    // Set active tab to image by default
     setActiveTab('image');
-    
-    // Load content based on current tab
-    loadCertificateContent();
 
-    // Set up download and view buttons
-    certDownloadBtn.onclick = function() {
-        checkFileExists(cert.pdf) ? downloadCertificate(cert.pdf, cert.title) : showFileNotFoundAlert('PDF');
-    };
-    
-    certViewOriginalBtn.onclick = function() {
-        checkFileExists(cert.pdf) ? window.open(cert.pdf, '_blank') : showFileNotFoundAlert('PDF');
-    };
+    certDownloadBtn.onclick = () => downloadCertificate(cert.pdf, cert.title);
 }
 
-// Reset modal views
 function resetModalViews() {
-    document.querySelectorAll('.cert-view').forEach(view => {
-        view.classList.remove('active');
-    });
+    document.querySelectorAll('.cert-view').forEach(view => view.classList.remove('active'));
+    certModalImage.src = '';
     certModalImage.style.display = 'none';
     certModalImage.classList.remove('loaded');
     certModalPDF.src = '';
-    document.querySelector('.pdf-fallback').style.display = 'none';
-}
-
-// Set active tab
-function setActiveTab(tabName) {
-    currentTab = tabName;
-    
-    // Update tab buttons
-    document.querySelectorAll('.cert-tab').forEach(tab => {
-        tab.classList.remove('active');
-    });
-    document.querySelector(`[data-tab="${tabName}"]`).classList.add('active');
-    
-    // Update views
-    document.querySelectorAll('.cert-view').forEach(view => {
-        view.classList.remove('active');
-    });
-    document.getElementById(`cert-${tabName}-view`).classList.add('active');
-    
-    // Load content for current tab
-    if (currentCertData) {
-        loadCertificateContent();
-    }
-}
-
-// Load certificate content based on current tab
-function loadCertificateContent() {
-    if (!currentCertData) return;
-    
     certModalLoading.style.display = 'flex';
     certModalError.style.display = 'none';
-    
+}
+
+function setActiveTab(tabName) {
+    currentTab = tabName;
+    document.querySelectorAll('.cert-tab').forEach(tab => tab.classList.toggle('active', tab.dataset.tab === tabName));
+    document.querySelectorAll('.cert-view').forEach(view => view.classList.toggle('active', view.id.includes(tabName)));
+    loadCertificateContent();
+}
+
+function loadCertificateContent() {
+    if (!currentCertData) return;
+    certModalLoading.style.display = 'flex';
+    certModalError.style.display = 'none';
     if (currentTab === 'image') {
         loadImageContent();
     } else if (currentTab === 'pdf') {
@@ -582,101 +549,56 @@ function loadCertificateContent() {
     }
 }
 
-// Load image content
-function loadImageContent() {
-    const img = new Image();
-    img.onload = function() {
+// ** MODIFIED FUNCTION to render PDF as an image **
+async function loadImageContent() {
+    const { pdfjsLib } = globalThis;
+    if (!pdfjsLib) {
+        showErrorMessage("PDF library not loaded. Please check your internet connection.");
+        return;
+    }
+    pdfjsLib.GlobalWorkerOptions.workerSrc = `https://mozilla.github.io/pdf.js/build/pdf.worker.mjs`;
+
+    const canvas = document.createElement('canvas');
+    const context = canvas.getContext('2d');
+
+    try {
+        const loadingTask = pdfjsLib.getDocument(currentCertData.pdf);
+        const pdf = await loadingTask.promise;
+        const page = await pdf.getPage(1); // Render the first page
+
+        const viewport = page.getViewport({ scale: 2.0 }); // Increase scale for better quality
+        canvas.height = viewport.height;
+        canvas.width = viewport.width;
+
+        await page.render({ canvasContext: context, viewport: viewport }).promise;
+
         certModalLoading.style.display = 'none';
-        certModalImage.src = this.src;
+        certModalImage.src = canvas.toDataURL('image/jpeg', 0.9); // Convert canvas to high-quality JPG
         certModalImage.style.display = 'block';
         certModalImage.classList.add('loaded');
-    };
-    
-    img.onerror = function() {
-        // Try fallback placeholder
-        const placeholderImg = new Image();
-        placeholderImg.onload = function() {
-            certModalLoading.style.display = 'none';
-            certModalImage.src = 'assets/certificates/certificate-placeholder.svg';
-            certModalImage.style.display = 'block';
-            certModalImage.classList.add('loaded');
-            showPlaceholderMessage();
-        };
-        
-        placeholderImg.onerror = function() {
-            certModalLoading.style.display = 'none';
-            showErrorMessage('Certificate image not found. Please add certificate files to the assets/certificates/ folder.');
-        };
-        
-        placeholderImg.src = 'assets/certificates/certificate-placeholder.svg';
-    };
-    
-    img.src = currentCertData.image;
-}
 
-// Load PDF content
-function loadPDFContent() {
-    // Check if PDF exists by trying to load it
-    const testPDF = new XMLHttpRequest();
-    testPDF.open('HEAD', currentCertData.pdf, true);
-    
-    testPDF.onload = function() {
-        if (testPDF.status === 200) {
-            certModalLoading.style.display = 'none';
-            certModalPDF.src = currentCertData.pdf;
-            
-            // Check if browser supports PDF viewing
-            certModalPDF.onload = function() {
-                // PDF loaded successfully
-            };
-            
-            certModalPDF.onerror = function() {
-                // PDF viewer not supported, show fallback
-                document.querySelector('.pdf-fallback').style.display = 'flex';
-            };
-        } else {
-            // PDF not found, try to show placeholder or error
-            certModalLoading.style.display = 'none';
-            showErrorMessage('PDF certificate not found. Please add PDF files to the assets/certificates/ folder.');
-        }
-    };
-    
-    testPDF.onerror = function() {
-        // PDF not found, show error
+    } catch (error) {
+        console.error('Error rendering PDF to image:', error);
         certModalLoading.style.display = 'none';
-        showErrorMessage('PDF certificate not found. Please add PDF files to the assets/certificates/ folder.');
-    };
-    
-    testPDF.send();
+        showErrorMessage('Could not display certificate. The PDF file might be missing or corrupted.');
+    }
 }
 
-// Show placeholder message
-function showPlaceholderMessage() {
-    const errorDiv = document.querySelector('.cert-modal-error p');
-    errorDiv.textContent = 'Showing placeholder certificate. Upload actual certificate files to see the real certificates.';
-    certModalError.style.display = 'flex';
-    certModalError.style.backgroundColor = '#fef3c7';
-    certModalError.style.color = '#92400e';
-    certModalError.querySelector('i').className = 'fas fa-info-circle';
+function loadPDFContent() {
+    certModalLoading.style.display = 'none';
+    certModalPDF.src = currentCertData.pdf;
 }
 
-// Show error message
 function showErrorMessage(message) {
     certModalError.style.display = 'flex';
-    certModalError.style.backgroundColor = '#fee2e2';
-    certModalError.style.color = '#991b1b';
-    certModalError.querySelector('i').className = 'fas fa-exclamation-triangle';
-    const errorDiv = document.querySelector('.cert-modal-error p');
-    errorDiv.textContent = message;
+    certModalError.querySelector('p').textContent = message;
 }
 
-// Close certificate modal
 function closeCertificateModal() {
     certificateModal.style.display = 'none';
     document.body.style.overflow = 'auto';
 }
 
-// Download certificate
 function downloadCertificate(url, title) {
     const link = document.createElement('a');
     link.href = url;
@@ -686,45 +608,26 @@ function downloadCertificate(url, title) {
     document.body.removeChild(link);
 }
 
-// Check if file exists (basic check)
-function checkFileExists(url) {
-    // For now, we'll always return true and let the browser handle the error
-    // In a real implementation, you might want to do an actual HTTP HEAD request
-    return true;
-}
-
-// Show file not found alert
-function showFileNotFoundAlert(fileType) {
-    alert(`${fileType} file not found. Please add the certificate files to the assets/certificates/ folder. See the certificate-generator.html for instructions.`);
-}
-
 // Event listeners for certificate items
 document.querySelectorAll('.clickable-cert').forEach(cert => {
     cert.addEventListener('click', function() {
-        const certId = this.getAttribute('data-cert');
-        openCertificateModal(certId);
+        openCertificateModal(this.dataset.cert);
     });
 });
 
 // Event listeners for tabs
 document.querySelectorAll('.cert-tab').forEach(tab => {
     tab.addEventListener('click', function() {
-        const tabName = this.getAttribute('data-tab');
-        setActiveTab(tabName);
+        setActiveTab(this.dataset.tab);
     });
 });
 
 // Close modal events
 certCloseBtn.addEventListener('click', closeCertificateModal);
-
-certificateModal.addEventListener('click', function(e) {
-    if (e.target === certificateModal) {
-        closeCertificateModal();
-    }
+certificateModal.addEventListener('click', e => {
+    if (e.target === certificateModal) closeCertificateModal();
 });
-
-// Keyboard events
-document.addEventListener('keydown', function(e) {
+document.addEventListener('keydown', e => {
     if (e.key === 'Escape' && certificateModal.style.display === 'block') {
         closeCertificateModal();
     }
