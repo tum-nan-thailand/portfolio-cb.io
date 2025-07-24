@@ -471,35 +471,35 @@ let currentCertData = null;
 const certificateData = {
     'phishing-2024': {
         title: 'Phishing Attack Training (2024)',
-        pdf: 'assets/my-cer/Phishing Attack.pdf'
+        pdf: 'assets/certificates/Phishing Attack.pdf'
     },
     'ransomware-2024': {
         title: 'Ransomware Training (2024)',
-        pdf: 'assets/my-cer/Ransomware.pdf'
+        pdf: 'assets/certificates/Ransomware.pdf'
     },
     'incident-report-2024': {
         title: 'Cyber Incident Reporting (2024)',
-        pdf: 'assets/my-cer/Rise Cyber Incident.pdf'
+        pdf: 'assets/certificates/Rise Cyber Incident.pdf'
     },
     'safe-web-2024': {
         title: 'Safe Web Browse (2024)',
-        pdf: 'assets/my-cer/Safe Web.pdf'
+        pdf: 'assets/certificates/Safe Web.pdf'
     },
     'public-wifi-2024': {
         title: 'Public Wi-Fi Security (2024)',
-        pdf: 'assets/my-cer/Public Wi-Fi.pdf'
+        pdf: 'assets/certificates/Public Wi-Fi.pdf'
     },
     'password-policy-2024': {
         title: 'Password Policy (2024)',
-        pdf: 'assets/my-cer/Password Policy.pdf'
+        pdf: 'assets/certificates/Password Policy.pdf'
     },
     'malware-2023': {
         title: 'Malware Threats (2023)',
-        pdf: 'assets/my-cer/หลักสูตรเบื้องต้น 07 - ภัยคุกคามมัลแวร์ (Malware).pdf'
+        pdf: 'assets/certificates/Malware Threats.pdf'
     },
     'computer-law-2023': {
         title: 'Computer Law (2023)',
-        pdf: 'assets/my-cer/หลักสูตรเบื้องต้น 12 - กฎหมายคอมพิวเตอร์ .pdf'
+        pdf: 'assets/certificates/Computer Law.pdf'
     }
 };
 
@@ -549,7 +549,7 @@ function loadCertificateContent() {
     }
 }
 
-// ** MODIFIED FUNCTION to render PDF as an image **
+// ** MODIFIED FUNCTION to render PDF as an image with better error handling **
 async function loadImageContent() {
     const { pdfjsLib } = globalThis;
     if (!pdfjsLib) {
@@ -562,6 +562,8 @@ async function loadImageContent() {
     const context = canvas.getContext('2d');
 
     try {
+        console.log('Attempting to load PDF:', currentCertData.pdf);
+        
         const loadingTask = pdfjsLib.getDocument(currentCertData.pdf);
         const pdf = await loadingTask.promise;
         const page = await pdf.getPage(1); // Render the first page
@@ -576,11 +578,18 @@ async function loadImageContent() {
         certModalImage.src = canvas.toDataURL('image/jpeg', 0.9); // Convert canvas to high-quality JPG
         certModalImage.style.display = 'block';
         certModalImage.classList.add('loaded');
+        
+        console.log('PDF rendered successfully');
 
     } catch (error) {
         console.error('Error rendering PDF to image:', error);
+        console.error('PDF path:', currentCertData.pdf);
+        console.error('Error details:', error.message);
+        
         certModalLoading.style.display = 'none';
-        showErrorMessage('Could not display certificate. The PDF file might be missing or corrupted.');
+        
+        // Show detailed error message
+        showErrorMessage(`Could not display certificate: ${error.message}. Please try the PDF view tab or check the console for details.`);
     }
 }
 
