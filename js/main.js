@@ -1,4 +1,3 @@
-// DOM Elements
 const header = document.querySelector('header');
 const hamburger = document.querySelector('.hamburger');
 const navLinks = document.querySelector('.nav-links');
@@ -13,11 +12,7 @@ const timelineContents = document.querySelectorAll('.timeline-content');
 const contactContent = document.querySelector('.contact-content');
 const heroSection = document.querySelector('.hero');
 
-// --- THEME LOGIC MODIFIED ---
-// Force dark mode permanently
 document.addEventListener('DOMContentLoaded', () => {
-    document.body.classList.add('dark-mode');
-
     // Start boot sequence
     bootSequence();
 
