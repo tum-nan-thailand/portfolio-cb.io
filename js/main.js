@@ -13,6 +13,33 @@ const timelineContents = document.querySelectorAll('.timeline-content');
 const contactContent = document.querySelector('.contact-content');
 const heroSection = document.querySelector('.hero');
 
+// --- THEME LOGIC MODIFIED ---
+// Force dark mode permanently
+document.addEventListener('DOMContentLoaded', () => {
+    document.body.classList.add('dark-mode');
+
+    // Start boot sequence
+    bootSequence();
+
+    // Set active nav link based on current section
+    setActiveNavLink();
+
+    // Animate elements if they're in the viewport
+    setTimeout(() => {
+        animateOnScroll();
+    }, 4000); // Delay until after boot sequence
+
+    // Start glitch effect after page load
+    setTimeout(addGlitchEffect, 4000);
+
+    // Create digital noise overlay
+    setTimeout(() => {
+        createDigitalNoiseOverlay();
+        createScanlines();
+    }, 3800);
+});
+
+
 // Create galaxy stars overlay
 function createDigitalNoiseOverlay() {
     // Create a canvas for galaxy particles
@@ -84,9 +111,6 @@ function createDigitalNoiseOverlay() {
     });
 }
 
-// Always use dark mode for galaxy theme
-document.body.classList.add('dark-mode');
-localStorage.setItem('theme', 'dark');
 
 // Mobile Menu Toggle
 hamburger.addEventListener('click', () => {
@@ -400,33 +424,6 @@ function bootSequence() {
     }, 3500);
 }
 
-// Initialize animations on page load
-document.addEventListener('DOMContentLoaded', () => {
-    // Start boot sequence
-    bootSequence();
-
-    // Set active nav link based on current section
-    setActiveNavLink();
-
-    // Animate elements if they're in the viewport
-    setTimeout(() => {
-        animateOnScroll();
-    }, 4000); // Delay until after boot sequence
-
-    // Start glitch effect after page load
-    setTimeout(addGlitchEffect, 4000);
-
-    // Create digital noise overlay
-    setTimeout(() => {
-        createDigitalNoiseOverlay();
-        createScanlines();
-    }, 3800);
-
-    // Set dark mode by default for galaxy theme
-    document.body.classList.add('dark-mode');
-    localStorage.setItem('theme', 'dark');
-});
-
 // Set active nav link based on scroll position
 function setActiveNavLink() {
     const sections = document.querySelectorAll('section');
@@ -467,7 +464,7 @@ const certCloseBtn = document.querySelector('.cert-close');
 let currentTab = 'image';
 let currentCertData = null;
 
-// Certificate data mapping (using your PDF files)
+// Certificate data mapping
 const certificateData = {
     'phishing-2024': {
         title: 'Phishing Attack Training (2024)',
@@ -502,6 +499,7 @@ const certificateData = {
         pdf: 'assets/certificates/Computer Law.pdf'
     }
 };
+
 
 // Open certificate modal
 function openCertificateModal(certId) {
@@ -549,7 +547,7 @@ function loadCertificateContent() {
     }
 }
 
-// ** MODIFIED FUNCTION to render PDF as an image with better error handling **
+// Render PDF as an image
 async function loadImageContent() {
     const { pdfjsLib } = globalThis;
     if (!pdfjsLib) {
@@ -562,34 +560,25 @@ async function loadImageContent() {
     const context = canvas.getContext('2d');
 
     try {
-        console.log('Attempting to load PDF:', currentCertData.pdf);
-        
         const loadingTask = pdfjsLib.getDocument(currentCertData.pdf);
         const pdf = await loadingTask.promise;
-        const page = await pdf.getPage(1); // Render the first page
+        const page = await pdf.getPage(1);
 
-        const viewport = page.getViewport({ scale: 2.0 }); // Increase scale for better quality
+        const viewport = page.getViewport({ scale: 2.0 });
         canvas.height = viewport.height;
         canvas.width = viewport.width;
 
         await page.render({ canvasContext: context, viewport: viewport }).promise;
 
         certModalLoading.style.display = 'none';
-        certModalImage.src = canvas.toDataURL('image/jpeg', 0.9); // Convert canvas to high-quality JPG
+        certModalImage.src = canvas.toDataURL('image/jpeg', 0.9);
         certModalImage.style.display = 'block';
         certModalImage.classList.add('loaded');
-        
-        console.log('PDF rendered successfully');
 
     } catch (error) {
         console.error('Error rendering PDF to image:', error);
-        console.error('PDF path:', currentCertData.pdf);
-        console.error('Error details:', error.message);
-        
         certModalLoading.style.display = 'none';
-        
-        // Show detailed error message
-        showErrorMessage(`Could not display certificate: ${error.message}. Please try the PDF view tab or check the console for details.`);
+        showErrorMessage(`Could not display certificate. Please try the PDF view tab.`);
     }
 }
 
