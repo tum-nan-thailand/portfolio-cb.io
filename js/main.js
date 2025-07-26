@@ -514,6 +514,117 @@ const certificateData = {
     }
 };
 
+// Work Experience Data
+const experienceDetails = {
+    'carabao-senior-backend': {
+        title: 'Senior Backend Developer at CARABAO TAWANDANG CO.LTD',
+        description: 'As a Senior Backend Developer, I am responsible for designing, developing, and maintaining scalable and high-performance backend systems critical to the company\'s core operations. I collaborate closely with cross-functional teams including frontend, CMS, and mobile application developers to ensure seamless integration and delivery of robust solutions. My work involves architectural design of microservices, implementing agile development methodologies, and conducting thorough root cause analysis to continuously improve system reliability and performance. I also play a key role in mentoring junior developers, fostering their growth, and ensuring adherence to coding standards and best practices.',
+        skills: ['NestJS', 'Node.js', 'TypeScript', 'Microservices', 'PostgreSQL', 'MongoDB', 'Redis', 'Docker', 'Kubernetes', 'AWS', 'CI/CD', 'Agile', 'Problem Solving', 'Team Leadership'],
+        webApps: [
+            { name: 'Internal Logistics Platform', url: '#' },
+            { name: 'Sales Analytics Dashboard', url: '#' }
+        ]
+    },
+    'cpg-software-developer': {
+        title: 'Software Developer at CHAROEN POKPHAND GROUP CO.LTD (CPG)',
+        description: 'During my tenure as a Software Developer in the Sustainability Unit, I was instrumental in designing and developing web applications focused on environmental and social governance. My responsibilities included implementing and tracking compliance with governance policies across various regional and global entities, including operations in China, Malaysia, and Taiwan. I worked closely with diverse stakeholders to ensure that all developed applications were meticulously aligned with the company\'s overarching sustainability goals and regulatory requirements.',
+        skills: ['PHP', 'Laravel', 'MySQL', 'Vue.js', 'RESTful APIs', 'Data Analysis', 'Compliance Management', 'Stakeholder Collaboration'],
+        webApps: [
+            { name: 'ESG Reporting System', url: '#' },
+            { name: 'Sustainability Dashboard', url: '#' }
+        ]
+    },
+    'carabao-fullstack-developer': {
+        title: 'Full Stack Developer at CARABAO TAWANDANG CO.LTD',
+        description: 'As a Full Stack Developer, I was responsible for the end-to-end development and maintenance of the ERP (Enterprise Resource Planning) system for CBD. My role encompassed both frontend and backend tasks, including the creation of intuitive user interfaces, development of robust backend functionalities, and ensuring seamless system integration across various modules. I collaborated actively with team members to enhance cross-platform compatibility and optimize the overall user experience. Additionally, I provided ongoing support and maintenance to ensure the smooth operation and continuous improvement of the ERP system.',
+        skills: ['PHP', 'CodeIgniter', 'JavaScript', 'jQuery', 'SQL Server', 'HTML/CSS', 'ERP Systems', 'System Integration', 'UI/UX Design'],
+        webApps: [
+            { name: 'Internal ERP System (CBD)', url: '#' },
+            { name: 'Inventory Management Module', url: '#' }
+        ]
+    },
+    'pcc-junior-developer': {
+        title: 'Junior Developer (Contract) at PROFESSIONAL COMPUTER CO.LTD (PCC)',
+        description: 'In my role as a Junior Developer, I focused on the development and optimization of the Wht service system software. My key responsibilities included implementing technical solutions to enhance system maintenance, efficiently resolving existing software issues, and ensuring system stability. I also played a crucial role in preparing detailed technical reports and documentation during my contract period, specifically for the Phayathai Revenue Department, demonstrating strong analytical and reporting skills.',
+        skills: ['PHP', 'JavaScript', 'MySQL', 'System Optimization', 'Bug Fixing', 'Technical Reporting'],
+        webApps: [
+            { name: 'Wht Service System', url: '#' },
+            { name: 'Tax Reporting Application', url: '#' }
+        ]
+    }
+};
+
+const experienceDetailModal = document.getElementById('experienceDetailModal');
+const expModalTitle = document.getElementById('expModalTitle');
+const expModalDescription = document.getElementById('expModalDescription');
+const expModalSkills = document.getElementById('expModalSkills');
+const expModalWebApps = document.getElementById('expModalWebApps');
+const expCloseBtns = document.querySelectorAll('.experience-close, .exp-modal-close-btn');
+
+function openExperienceDetailModal(experienceId) {
+    const exp = experienceDetails[experienceId];
+    if (!exp) {
+        console.error(`Experience details not found for ID: ${experienceId}`);
+        return;
+    }
+
+    expModalTitle.textContent = exp.title;
+    expModalDescription.textContent = exp.description;
+
+    expModalSkills.innerHTML = '';
+    exp.skills.forEach(skill => {
+        const span = document.createElement('span');
+        span.classList.add('exp-modal-tag');
+        span.textContent = skill;
+        expModalSkills.appendChild(span);
+    });
+
+    expModalWebApps.innerHTML = '';
+    exp.webApps.forEach(app => {
+        const linkItem = document.createElement('span');
+        linkItem.classList.add('exp-modal-link-item');
+        const link = document.createElement('a');
+        link.href = app.url;
+        link.textContent = app.name;
+        link.target = '_blank';
+        link.rel = 'noopener noreferrer';
+        linkItem.appendChild(link);
+        expModalWebApps.appendChild(linkItem);
+    });
+
+    experienceDetailModal.style.display = 'block';
+    document.body.style.overflow = 'hidden';
+}
+
+function closeExperienceDetailModal() {
+    experienceDetailModal.style.display = 'none';
+    document.body.style.overflow = 'auto';
+}
+
+// Event listeners for opening experience modal
+document.querySelectorAll('.view-details-btn').forEach(button => {
+    button.addEventListener('click', function () {
+        openExperienceDetailModal(this.dataset.experienceId);
+    });
+});
+
+// Event listeners for closing experience modal
+expCloseBtns.forEach(btn => {
+    btn.addEventListener('click', closeExperienceDetailModal);
+});
+
+experienceDetailModal.addEventListener('click', e => {
+    if (e.target === experienceDetailModal) {
+        closeExperienceDetailModal();
+    }
+});
+
+document.addEventListener('keydown', e => {
+    if (e.key === 'Escape' && experienceDetailModal.style.display === 'block') {
+        closeExperienceDetailModal();
+    }
+});
+
 
 // Open certificate modal
 function openCertificateModal(certId) {

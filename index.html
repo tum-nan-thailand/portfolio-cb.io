@@ -266,7 +266,7 @@
         <div class="container">
             <h2 class="section-title">Work Experience</h2>
             <div class="timeline">
-                <div class="timeline-item">
+                <div class="timeline-item" data-experience-id="carabao-senior-backend">
                     <div class="timeline-dot"></div>
                     <div class="timeline-content">
                         <h3>Back End Senior Developer</h3>
@@ -276,9 +276,10 @@
                         </h4>
                         <p class="timeline-date">August 2022 - Present</p>
                         <p>Develop and maintain scalable backend systems to support business operations. Collaborate with frontend, CMS, and mobile app teams. Design microservices architectures, implement agile workflows, and conduct root cause analysis for continuous improvement. Mentor junior developers to foster professional growth and ensure adherence to best practices.</p>
+                        <button class="view-details-btn" data-experience-id="carabao-senior-backend">View Details</button>
                     </div>
                 </div>
-                <div class="timeline-item">
+                <div class="timeline-item" data-experience-id="cpg-software-developer">
                     <div class="timeline-dot"></div>
                     <div class="timeline-content">
                         <h3>Soft Ware Developer</h3>
@@ -288,9 +289,10 @@
                         </h4>
                         <p class="timeline-date">April 2021 - August 2022</p>
                         <p>Design and develop web applications within the Sustainability Unit. Implement governance policies and track compliance across regional and global levels, including China, Malaysia, and Taiwan. Collaborate with stakeholders to create applications aligned with sustainability goals.</p>
+                        <button class="view-details-btn" data-experience-id="cpg-software-developer">View Details</button>
                     </div>
                 </div>
-                <div class="timeline-item">
+                <div class="timeline-item" data-experience-id="carabao-fullstack-developer">
                     <div class="timeline-dot"></div>
                     <div class="timeline-content">
                         <h3>Full Stack Developer</h3>
@@ -300,9 +302,10 @@
                         </h4>
                         <p class="timeline-date">April 2019 - April 2021</p>
                         <p>Developed and maintained the ERP system for CBD, focusing on both frontend and backend tasks, including creating user-friendly interfaces, backend functionalities, and ensuring seamless system integration. Collaborated with team members to enhance cross-platform compatibility and user experience, providing ongoing support and maintenance.</p>
+                        <button class="view-details-btn" data-experience-id="carabao-fullstack-developer">View Details</button>
                     </div>
                 </div>
-                <div class="timeline-item">
+                <div class="timeline-item" data-experience-id="pcc-junior-developer">
                     <div class="timeline-dot"></div>
                     <div class="timeline-content">
                         <h3>Junior Developer (Contract 6 Month)</h3>
@@ -312,6 +315,7 @@
                         </h4>
                         <p class="timeline-date">November 2018 - April 2019</p>
                         <p>Developed and optimized the Wht service system software, implemented solutions to enhance system maintenance, and resolved existing issues. Additionally, prepared detailed reports during my tenure at PROFESSIONAL COMPUTER CO. LTD (PCC) for the Phayathai Revenue Department.</p>
+                        <button class="view-details-btn" data-experience-id="pcc-junior-developer">View Details</button>
                     </div>
                 </div>
             </div>
@@ -552,6 +556,30 @@
             </div>
             <div class="cert-modal-footer">
                 <button id="certDownloadBtn" class="cert-download-btn"><i class="fas fa-download"></i> Download PDF</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Experience Detail Modal -->
+    <div id="experienceDetailModal" class="experience-modal">
+        <div class="experience-modal-content">
+            <div class="experience-modal-header">
+                <h3 id="expModalTitle">Work Experience Details</h3>
+                <span class="experience-close">&times;</span>
+            </div>
+            <div class="experience-modal-body">
+                <p id="expModalDescription"></p>
+                <div class="exp-modal-section">
+                    <h4><i class="fas fa-tools"></i> Skills Used</h4>
+                    <div id="expModalSkills" class="exp-modal-tags"></div>
+                </div>
+                <div class="exp-modal-section">
+                    <h4><i class="fas fa-globe"></i> Web Applications / Projects</h4>
+                    <div id="expModalWebApps" class="exp-modal-links"></div>
+                </div>
+            </div>
+            <div class="experience-modal-footer">
+                <button class="exp-modal-close-btn">Close</button>
             </div>
         </div>
     </div>

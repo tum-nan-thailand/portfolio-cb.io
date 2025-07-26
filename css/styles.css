@@ -2579,3 +2579,261 @@ footer::after {
     color: var(--secondary-color);
     border-color: rgba(255, 107, 158, 0.2);
 }
+
+/* Experience Modal Styles */
+.experience-modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 10000; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    background-color: rgba(0, 0, 0, 0.9); /* Black w/ opacity */
+    backdrop-filter: blur(5px); /* Frosted glass effect */
+    overflow: auto; /* Enable scroll if needed */
+}
+
+.experience-modal-content {
+    background: linear-gradient(135deg, rgba(10, 10, 32, 0.98) 0%, rgba(26, 26, 58, 0.98) 100%);
+    margin: 2% auto; /* 5% from the top and centered */
+    padding: 0;
+    border: 1px solid var(--primary-color);
+    border-radius: 15px;
+    width: 90%;
+    max-width: 700px;
+    box-shadow: 0 20px 60px rgba(138, 43, 226, 0.5); /* Stronger neon shadow */
+    animation: modalSlideIn 0.3s ease-out;
+    color: var(--text-color);
+    overflow: hidden;
+    position: relative;
+}
+
+.experience-modal-content::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle, rgba(77, 201, 255, 0.05) 1px, transparent 1px);
+    background-size: 20px 20px;
+    z-index: -1;
+    opacity: 0.7;
+}
+
+.experience-modal-header {
+    padding: 20px 30px;
+    background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    text-shadow: var(--neon-text-shadow);
+    position: relative;
+    overflow: hidden;
+}
+
+.experience-modal-header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    transition: 0.5s;
+    animation: headerShine 3s infinite;
+}
+
+@keyframes headerShine {
+    0% {
+        left: -100%;
+    }
+    50% {
+        left: 100%;
+    }
+    100% {
+        left: -100%;
+    }
+}
+
+.experience-modal-header h3 {
+    margin: 0;
+    font-size: 1.8rem;
+    font-family: 'Orbitron', sans-serif;
+}
+
+.experience-close {
+    color: white;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: var(--transition);
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    border: 1px solid transparent;
+}
+
+.experience-close:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: rotate(90deg) scale(1.1);
+    border-color: rgba(255, 255, 255, 0.5);
+}
+
+.experience-modal-body {
+    padding: 30px;
+    text-align: left;
+    max-height: 70vh; /* Limit height for scrollable content */
+    overflow-y: auto; /* Enable vertical scrolling */
+    line-height: 1.8;
+    font-size: 1.1rem;
+}
+
+.exp-modal-section {
+    margin-bottom: 25px;
+    padding-top: 15px;
+    border-top: 1px dashed rgba(255, 255, 255, 0.1);
+}
+
+.exp-modal-section:first-of-type {
+    border-top: none;
+    padding-top: 0;
+}
+
+.exp-modal-section h4 {
+    color: var(--accent-color);
+    font-size: 1.4rem;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-shadow: 0 0 8px var(--accent-color);
+}
+
+.exp-modal-section h4 i {
+    font-size: 1.2em;
+}
+
+.exp-modal-tags,
+.exp-modal-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.exp-modal-tag,
+.exp-modal-link-item {
+    background-color: rgba(77, 201, 255, 0.15);
+    color: var(--accent-color);
+    padding: 0.6rem 1.2rem;
+    border-radius: 20px;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.95rem;
+    border: 1px solid rgba(77, 201, 255, 0.3);
+    transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+    text-shadow: 0 0 5px rgba(77, 201, 255, 0.3);
+}
+
+.exp-modal-tag:hover,
+.exp-modal-link-item:hover {
+    background-color: rgba(255, 107, 158, 0.25);
+    color: var(--secondary-color);
+    border-color: var(--secondary-color);
+    box-shadow: 0 0 15px rgba(255, 107, 158, 0.4);
+}
+
+.exp-modal-link-item a {
+    color: inherit; /* Inherit color from parent */
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.experience-modal-footer {
+    padding: 20px 30px;
+    background: rgba(138, 43, 226, 0.15);
+    border-top: 1px solid rgba(138, 43, 226, 0.3);
+    display: flex;
+    justify-content: flex-end;
+}
+
+.exp-modal-close-btn {
+    padding: 12px 30px;
+    background: var(--gradient-bg);
+    color: white;
+    border: none;
+    border-radius: 25px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+    transition: var(--transition);
+    box-shadow: var(--glitch-shadow);
+}
+
+.exp-modal-close-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 0 20px var(--primary-color);
+}
+
+/* View Details Button in Timeline */
+.view-details-btn {
+    margin-top: 15px;
+    padding: 8px 15px;
+    background: rgba(77, 201, 255, 0.1);
+    color: var(--accent-color);
+    border: 1px solid var(--accent-color);
+    border-radius: 5px;
+    cursor: pointer;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+    text-shadow: 0 0 5px var(--accent-color);
+}
+
+.view-details-btn:hover {
+    background-color: var(--accent-color);
+    color: var(--bg-color);
+    box-shadow: 0 0 15px var(--accent-color);
+    transform: translateY(-3px);
+}
+
+/* Responsive adjustments for modal */
+@media (max-width: 768px) {
+    .experience-modal-content {
+        margin: 5% auto;
+        width: 95%;
+        max-height: 90vh;
+    }
+
+    .experience-modal-header h3 {
+        font-size: 1.4rem;
+    }
+
+    .experience-modal-body {
+        padding: 20px;
+        font-size: 1rem;
+    }
+
+    .exp-modal-section h4 {
+        font-size: 1.2rem;
+    }
+
+    .exp-modal-tag,
+    .exp-modal-link-item {
+        padding: 0.5rem 1rem;
+        font-size: 0.85rem;
+    }
+
+    .exp-modal-close-btn {
+        padding: 10px 20px;
+        font-size: 0.9rem;
+    }
+}
