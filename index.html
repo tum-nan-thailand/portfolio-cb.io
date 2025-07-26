@@ -165,6 +165,7 @@
                 </div>
             </div>
         </div>
+        <canvas id="particleCanvas"></canvas>
     </section>
 
     <section id="about" class="about">
@@ -197,7 +198,7 @@
         <div class="container">
             <h2 class="section-title">My Skills</h2>
             <div class="skills-wow-grid">
-                <div class="skill-wow-card" style="transition-delay: 0.1s;">
+                <div class="skill-wow-card">
                     <div class="skill-icon"><i class="fas fa-server"></i></div>
                     <h3>BackEnd</h3>
                     <div class="skill-tags">
@@ -211,7 +212,7 @@
                         <span class="skill-tag"><i class="fab fa-java"></i> JavaSpringBoot</span>
                     </div>
                 </div>
-                <div class="skill-wow-card" style="transition-delay: 0.2s;">
+                <div class="skill-wow-card">
                     <div class="skill-icon"><i class="fas fa-desktop"></i></div>
                     <h3>FrontEnd</h3>
                     <div class="skill-tags">
@@ -224,7 +225,7 @@
                         <span class="skill-tag"><i class="fab fa-html5"></i> HTML/CSS</span>
                     </div>
                 </div>
-                <div class="skill-wow-card" style="transition-delay: 0.3s;">
+                <div class="skill-wow-card">
                     <div class="skill-icon"><i class="fas fa-database"></i></div>
                     <h3>Database Management</h3>
                     <div class="skill-tags">
@@ -236,7 +237,7 @@
                         <span class="skill-tag"><i class="fas fa-database"></i> ElasticSearch</span>
                     </div>
                 </div>
-                <div class="skill-wow-card" style="transition-delay: 0.4s;">
+                <div class="skill-wow-card">
                     <div class="skill-icon"><i class="fas fa-cogs"></i></div>
                     <h3>Infrastructure & Tools</h3>
                     <div class="skill-tags">
@@ -249,7 +250,7 @@
                         <span class="skill-tag"><i class="fas fa-robot"></i> Kong</span>
                     </div>
                 </div>
-                <div class="skill-wow-card" style="transition-delay: 0.5s;">
+                <div class="skill-wow-card">
                     <div class="skill-icon"><i class="fas fa-code-branch"></i></div>
                     <h3>Version Control & CI/CD</h3>
                     <div class="skill-tags">
@@ -322,6 +323,52 @@
         </div>
     </section>
 
+    <section id="achievements" class="achievements">
+        <div class="container">
+            <h2 class="section-title">My Achievements</h2>
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <div class="stat-icon"><i class="fas fa-code-branch"></i></div>
+                    <div class="stat-number" data-target="100000">0</div>
+                    <div class="stat-label">Lines of Code</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-icon"><i class="fas fa-project-diagram"></i></div>
+                    <div class="stat-number" data-target="25">0</div>
+                    <div class="stat-label">Projects Completed</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-icon"><i class="fas fa-users"></i></div>
+                    <div class="stat-number" data-target="5">0</div>
+                    <div class="stat-label">Teams Collaborated</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-icon"><i class="fas fa-award"></i></div>
+                    <div class="stat-number" data-target="99.9">0</div>
+                    <div class="stat-label">Uptime %</div>
+                </div>
+            </div>
+
+            <div class="achievements-list">
+                <h3>Key Milestones</h3>
+                <div class="milestone-grid">
+                    <div class="milestone-item">
+                        <div class="milestone-year">2022</div>
+                        <p class="milestone-desc">Promoted to Senior Backend Developer, leading complex microservices projects and mentoring junior team members.</p>
+                    </div>
+                    <div class="milestone-item">
+                        <div class="milestone-year">2021</div>
+                        <p class="milestone-desc">Successfully integrated sustainability reporting systems across global business units, enhancing data compliance.</p>
+                    </div>
+                    <div class="milestone-item">
+                        <div class="milestone-year">2019</div>
+                        <p class="milestone-desc">Led the development of a critical ERP module, improving operational efficiency by 15%.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <section id="projects" class="projects">
         <div class="container">
             <h2 class="section-title">My Projects</h2>
@@ -331,7 +378,7 @@
             <div class="projects-grid">
                 <div class="project-card" data-category="github">
                     <div class="project-img">
-                        <img src="https://opengraph.githubassets.com/1/tum-nan-thailand/sorsery" alt="sorsery" onerror="this.onerror=null;this.src='assets/images/portfolio-default.png';">
+                        <img src="assets/images/project-placeholder.jpg" alt="sorsery" onerror="this.onerror=null;this.src='assets/images/portfolio-default.png';">
                     </div>
                     <div class="project-info">
                         <div class="project-header">
@@ -349,7 +396,7 @@
                 </div>
                 <div class="project-card" data-category="github">
                     <div class="project-img">
-                        <img src="https://opengraph.githubassets.com/1/tum-nan-thailand/My-Job-Tracker" alt="My-Job-Tracker" onerror="this.onerror=null;this.src='assets/images/portfolio-default.png';">
+                        <img src="assets/images/project-placeholder.jpg" alt="My-Job-Tracker" onerror="this.onerror=null;this.src='assets/images/portfolio-default.png';">
                     </div>
                     <div class="project-info">
                         <div class="project-header">
@@ -367,7 +414,7 @@
                 </div>
                 <div class="project-card" data-category="github">
                     <div class="project-img">
-                        <img src="https://opengraph.githubassets.com/1/tum-nan-thailand/git-easy" alt="git-easy" onerror="this.onerror=null;this.src='assets/images/portfolio-default.png';">
+                        <img src="assets/images/project-placeholder.jpg" alt="git-easy" onerror="this.onerror=null;this.src='assets/images/portfolio-default.png';">
                     </div>
                     <div class="project-info">
                         <div class="project-header">
@@ -501,7 +548,7 @@
                     </div>
                 </div>
                 <div class="contact-form">
-                    <form id="contactForm" action="https://formspree.io/f/your_form_id" method="POST">
+                    <form id="contactForm">
                         <div class="form-group">
                             <input type="text" id="name" name="name" placeholder="Your Name" required>
                         </div>
@@ -516,6 +563,7 @@
                         </div>
                         <button type="submit" class="btn primary-btn">Send Message</button>
                     </form>
+                    <div id="formMessages" class="form-messages"></div>
                 </div>
             </div>
         </div>
@@ -584,6 +632,7 @@
         </div>
     </div>
 
+    <canvas id="digitalRainCanvas"></canvas>
 
     <footer>
         <div class="container">
@@ -600,52 +649,6 @@
     
     <script src="https://mozilla.github.io/pdf.js/build/pdf.mjs" type="module"></script>
     
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            // WOW SKILLS SCRIPT
-            const skillCards = document.querySelectorAll('.skill-wow-card');
-            const skillsObserver = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('in-view');
-                    }
-                });
-            }, {
-                threshold: 0.1
-            });
-            skillCards.forEach(card => {
-                skillsObserver.observe(card);
-            });
-
-            // THEME TOGGLE SCRIPT
-            const themeToggle = document.querySelector('.theme-toggle');
-            const themeIcon = themeToggle.querySelector('i');
-            const body = document.body;
-
-            const applyTheme = (theme) => {
-                if (theme === 'dark') {
-                    body.classList.add('dark-mode');
-                    themeIcon.classList.remove('fa-sun');
-                    themeIcon.classList.add('fa-moon');
-                } else {
-                    body.classList.remove('dark-mode');
-                    themeIcon.classList.remove('fa-moon');
-                    themeIcon.classList.add('fa-sun');
-                }
-            };
-
-            // On page load, check for saved theme. Default to dark if none found.
-            const savedTheme = localStorage.getItem('theme') || 'dark';
-            applyTheme(savedTheme);
-
-            // Add click listener for the toggle button
-            themeToggle.addEventListener('click', () => {
-                const isDarkMode = body.classList.contains('dark-mode');
-                const newTheme = isDarkMode ? 'light' : 'dark';
-                localStorage.setItem('theme', newTheme);
-                applyTheme(newTheme);
-            });
-        });
-    </script>
+    
 </body>
 </html>

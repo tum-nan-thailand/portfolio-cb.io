@@ -6,97 +6,256 @@ const filterBtns = document.querySelectorAll('.filter-btn');
 const projectCards = document.querySelectorAll('.project-card');
 const skillLevels = document.querySelectorAll('.skill-level');
 const contactForm = document.getElementById('contactForm');
+const formMessages = document.getElementById('formMessages');
+const submitButton = contactForm.querySelector('button[type="submit"]');
 const aboutContent = document.querySelector('.about-content');
 const skillsContent = document.querySelector('.skills-content');
 const timelineContents = document.querySelectorAll('.timeline-content');
 const contactContent = document.querySelector('.contact-content');
 const heroSection = document.querySelector('.hero');
+const achievementsSection = document.querySelector('#achievements');
 
 document.addEventListener('DOMContentLoaded', () => {
     bootSequence();
     setActiveNavLink();
-    setTimeout(() => {
-        animateOnScroll();
-    }, 4000);
     setTimeout(addGlitchEffect, 4000);
+
+    // Start digital rain effect after boot sequence
     setTimeout(() => {
-        createDigitalNoiseOverlay();
-        createScanlines();
-    }, 3800);
-});
+        createDigitalRain();
+    }, 4500);
 
+    // Start interactive particle effect in hero section
+    setTimeout(() => {
+        createParticleEffect();
+    }, 5000);
 
-// Create galaxy stars overlay
-function createDigitalNoiseOverlay() {
-    // Create a canvas for galaxy particles
-    const galaxyCanvas = document.createElement('canvas');
-    galaxyCanvas.classList.add('galaxy-canvas');
-    galaxyCanvas.style.position = 'fixed';
-    galaxyCanvas.style.top = '0';
-    galaxyCanvas.style.left = '0';
-    galaxyCanvas.style.width = '100%';
-    galaxyCanvas.style.height = '100%';
-    galaxyCanvas.style.pointerEvents = 'none';
-    galaxyCanvas.style.zIndex = '9999';
-    galaxyCanvas.style.opacity = '0.3';
-    document.body.appendChild(galaxyCanvas);
-
-    // Set canvas size
-    galaxyCanvas.width = window.innerWidth;
-    galaxyCanvas.height = window.innerHeight;
-
-    // Get canvas context
-    const ctx = galaxyCanvas.getContext('2d');
-
-    // Create stars
-    const stars = [];
-    const numStars = 100;
-
-    for (let i = 0; i < numStars; i++) {
-        stars.push({
-            x: Math.random() * galaxyCanvas.width,
-            y: Math.random() * galaxyCanvas.height,
-            radius: Math.random() * 1.5,
-            color: i % 3 === 0 ? '#ffde59' : (i % 2 === 0 ? '#4dc9ff' : '#ffffff'),
-            speed: Math.random() * 0.5
-        });
-    }
-
-    // Animation function
-    function animateGalaxy() {
-        // Clear canvas
-        ctx.clearRect(0, 0, galaxyCanvas.width, galaxyCanvas.height);
-
-        // Draw stars
-        stars.forEach(star => {
-            ctx.beginPath();
-            ctx.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
-            ctx.fillStyle = star.color;
-            ctx.fill();
-
-            // Move star
-            star.x += star.speed;
-
-            // Reset star position if it goes off screen
-            if (star.x > galaxyCanvas.width) {
-                star.x = 0;
+    // WOW SKILLS SCRIPT
+    const skillCards = document.querySelectorAll('.skill-wow-card');
+    skillCards.forEach((card, index) => {
+        card.style.transitionDelay = `${index * 0.1}s`;
+    });
+    const skillsObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('in-view');
             }
         });
+    }, {
+        threshold: 0.1
+    });
+    skillCards.forEach(card => {
+        skillsObserver.observe(card);
+    });
 
-        // Request next frame
-        requestAnimationFrame(animateGalaxy);
+    // THEME TOGGLE SCRIPT
+    const themeToggle = document.querySelector('.theme-toggle');
+    const themeIcon = themeToggle.querySelector('i');
+    const body = document.body;
+
+    const applyTheme = (theme) => {
+        if (theme === 'dark') {
+            body.classList.add('dark-mode');
+            themeIcon.classList.remove('fa-sun');
+            themeIcon.classList.add('fa-moon');
+        } else {
+            body.classList.remove('dark-mode');
+            themeIcon.classList.remove('fa-moon');
+            themeIcon.classList.add('fa-sun');
+        }
+    };
+
+    // On page load, check for saved theme. Default to dark if none found.
+    const savedTheme = localStorage.getItem('theme') || 'dark';
+    applyTheme(savedTheme);
+
+    // Add click listener for the toggle button
+    themeToggle.addEventListener('click', () => {
+        const isDarkMode = body.classList.contains('dark-mode');
+        const newTheme = isDarkMode ? 'light' : 'dark';
+        localStorage.setItem('theme', newTheme);
+        applyTheme(newTheme);
+    });
+});
+
+// Digital Rain Effect (Matrix style)
+function createDigitalRain() {
+    const canvas = document.getElementById('digitalRainCanvas');
+    const ctx = canvas.getContext('2d');
+
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    const characters = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    const fontSize = 16;
+    const columns = canvas.width / fontSize;
+
+    const drops = [];
+    for (let i = 0; i < columns; i++) {
+        drops[i] = 1;
     }
 
-    // Start animation
-    animateGalaxy();
+    function draw() {
+        ctx.fillStyle = 'rgba(0, 0, 0, 0.05)'; // Fading effect
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-    // Handle window resize
+        ctx.fillStyle = '#0F0'; // Green characters
+        ctx.font = `${fontSize}px monospace`;
+
+        for (let i = 0; i < drops.length; i++) {
+            const text = characters.charAt(Math.floor(Math.random() * characters.length));
+            ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+
+            if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+                drops[i] = 0;
+            }
+
+            drops[i]++;
+        }
+    }
+
+    setInterval(draw, 33);
+
     window.addEventListener('resize', () => {
-        galaxyCanvas.width = window.innerWidth;
-        galaxyCanvas.height = window.innerHeight;
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        // Reinitialize drops for new dimensions
+        drops.length = 0;
+        for (let i = 0; i < canvas.width / fontSize; i++) {
+            drops[i] = 1;
+        }
     });
 }
 
+// Interactive Particle Effect for Hero Section
+function createParticleEffect() {
+    const canvas = document.getElementById('particleCanvas');
+    const ctx = canvas.getContext('2d');
+
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    const particles = [];
+    const particleCount = 100;
+    const mouse = { x: null, y: null, radius: 100 };
+
+    // Particle constructor
+    function Particle(x, y, directionX, directionY, size, color) {
+        this.x = x;
+        this.y = y;
+        this.directionX = directionX;
+        this.directionY = directionY;
+        this.size = size;
+        this.color = color;
+    }
+
+    // Draw particle
+    Particle.prototype.draw = function() {
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2, false);
+        ctx.fillStyle = this.color;
+        ctx.fill();
+    };
+
+    // Update particle position and draw
+    Particle.prototype.update = function() {
+        // Check boundaries
+        if (this.x + this.size > canvas.width || this.x - this.size < 0) {
+            this.directionX = -this.directionX;
+        }
+        if (this.y + this.size > canvas.height || this.y - this.size < 0) {
+            this.directionY = -this.directionY;
+        }
+
+        this.x += this.directionX;
+        this.y += this.directionY;
+
+        // Interaction with mouse
+        const distance = Math.sqrt(Math.pow(mouse.x - this.x, 2) + Math.pow(mouse.y - this.y, 2));
+        if (distance < mouse.radius + this.size) {
+            if (mouse.x < this.x && this.x < canvas.width - this.size * 10) {
+                this.x += 10;
+            }
+            if (mouse.x > this.x && this.x > this.size * 10) {
+                this.x -= 10;
+            }
+            if (mouse.y < this.y && this.y < canvas.height - this.size * 10) {
+                this.y += 10;
+            }
+            if (mouse.y > this.y && this.y > this.size * 10) {
+                this.y -= 10;
+            }
+        }
+
+        this.draw();
+    };
+
+    // Initialize particles
+    function init() {
+        for (let i = 0; i < particleCount; i++) {
+            const size = (Math.random() * 5) + 1; // Size between 1 and 6
+            const x = Math.random() * ((canvas.width - size * 2) - (size * 2)) + size * 2;
+            const y = Math.random() * ((canvas.height - size * 2) - (size * 2)) + size * 2;
+            const directionX = (Math.random() * 0.5) - 0.25; // Speed between -0.25 and 0.25
+            const directionY = (Math.random() * 0.5) - 0.25; // Speed between -0.25 and 0.25
+            const color = 'rgba(0, 188, 212, 0.8)'; // Primary color with transparency
+            particles.push(new Particle(x, y, directionX, directionY, size, color));
+        }
+    }
+
+    // Animation loop
+    function animate() {
+        requestAnimationFrame(animate);
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        for (let i = 0; i < particles.length; i++) {
+            particles[i].update();
+        }
+
+        connectParticles();
+    }
+
+    // Connect particles with lines
+    function connectParticles() {
+        let opacityValue = 1;
+        for (let a = 0; a < particles.length; a++) {
+            for (let b = a; b < particles.length; b++) {
+                const distance = Math.sqrt(Math.pow(particles[a].x - particles[b].x, 2) + Math.pow(particles[a].y - particles[b].y, 2));
+                if (distance < 120) {
+                    opacityValue = 1 - (distance / 120);
+                    ctx.strokeStyle = `rgba(0, 188, 212, ${opacityValue})`;
+                    ctx.lineWidth = 1;
+                    ctx.beginPath();
+                    ctx.moveTo(particles[a].x, particles[a].y);
+                    ctx.lineTo(particles[b].x, particles[b].y);
+                    ctx.stroke();
+                }
+            }
+        }
+    }
+
+    // Mouse interactivity
+    canvas.addEventListener('mousemove', (event) => {
+        mouse.x = event.x;
+        mouse.y = event.y;
+    });
+
+    canvas.addEventListener('mouseout', () => {
+        mouse.x = null;
+        mouse.y = null;
+    });
+
+    // Resize event
+    window.addEventListener('resize', () => {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        particles.length = 0; // Clear particles
+        init(); // Reinitialize particles for new dimensions
+    });
+
+    init();
+    animate();
+}
 
 // Mobile Menu Toggle
 hamburger.addEventListener('click', () => {
@@ -129,7 +288,7 @@ window.addEventListener('scroll', () => {
     }
 
     // Animate elements when in viewport
-    animateOnScroll();
+    checkAchievementsInView(); // Call directly for achievements
 });
 
 // Project Filtering
@@ -154,71 +313,53 @@ filterBtns.forEach(btn => {
     });
 });
 
-// Animate elements when in viewport
-function animateOnScroll() {
-    // Animate skill bars
-    skillLevels.forEach(skill => {
-        const skillPosition = skill.getBoundingClientRect().top;
-        const screenPosition = window.innerHeight / 1.3;
+// Observer for timeline items and project cards
+const observerOptions = {
+    threshold: 0.1
+};
 
-        if (skillPosition < screenPosition) {
-            const width = skill.getAttribute('style').match(/width: (\d+)%/)[1];
-            skill.style.width = width + '%';
-        } else {
-            skill.style.width = '0';
+const elementObserver = new IntersectionObserver((entries, observer) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add('animate');
+            observer.unobserve(entry.target); // Stop observing once animated
         }
     });
+}, observerOptions);
 
-    // Animate about content
-    if (aboutContent) {
-        const position = aboutContent.getBoundingClientRect().top;
-        const screenPosition = window.innerHeight / 1.3;
+// Observe timeline items
+timelineContents.forEach(content => {
+    elementObserver.observe(content);
+});
 
-        if (position < screenPosition) {
-            aboutContent.classList.add('animate');
-        }
-    }
+// Observe project cards
+projectCards.forEach(card => {
+    elementObserver.observe(card);
+});
 
-    // Animate skills content
-    if (skillsContent) {
-        const position = skillsContent.getBoundingClientRect().top;
-        const screenPosition = window.innerHeight / 1.3;
+// Observe about, skills, and contact content
+if (aboutContent) elementObserver.observe(aboutContent);
+if (skillsContent) elementObserver.observe(skillsContent);
+if (contactContent) elementObserver.observe(contactContent);
 
-        if (position < screenPosition) {
-            skillsContent.classList.add('animate');
-        }
-    }
-
-    // Animate timeline content
-    timelineContents.forEach(content => {
-        const position = content.getBoundingClientRect().top;
-        const screenPosition = window.innerHeight / 1.3;
-
-        if (position < screenPosition) {
-            content.classList.add('animate');
-        }
-    });
-
-    // Animate project cards
-    projectCards.forEach(card => {
-        const position = card.getBoundingClientRect().top;
-        const screenPosition = window.innerHeight / 1.3;
-
-        if (position < screenPosition) {
-            card.classList.add('animate');
+// New observer for skill bars
+const skillBarObserver = new IntersectionObserver((entries, observer) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            const skill = entry.target;
+            const width = skill.getAttribute('style').match(/width: (\d+)%/)?.[1];
+            if (width) {
+                skill.style.width = width + '%';
+            }
+            observer.unobserve(skill); // Stop observing once animated
         }
     });
+}, observerOptions);
 
-    // Animate contact content
-    if (contactContent) {
-        const position = contactContent.getBoundingClientRect().top;
-        const screenPosition = window.innerHeight / 1.3;
-
-        if (position < screenPosition) {
-            contactContent.classList.add('animate');
-        }
-    }
-}
+// Observe skill levels
+skillLevels.forEach(skill => {
+    skillBarObserver.observe(skill);
+});
 
 // Counter animation for statistics
 function animateCounters() {
@@ -250,7 +391,6 @@ function animateCounters() {
 
 // Check if achievements section is in viewport
 function checkAchievementsInView() {
-    const achievementsSection = document.querySelector('#achievements');
     if (!achievementsSection) return;
 
     const rect = achievementsSection.getBoundingClientRect();
@@ -263,16 +403,24 @@ function checkAchievementsInView() {
 }
 
 // Add to scroll event listener
-const originalAnimateOnScroll = window.animateOnScroll || function () { };
-window.animateOnScroll = function () {
-    originalAnimateOnScroll();
-    checkAchievementsInView();
-};
+// const originalAnimateOnScroll = window.animateOnScroll || function () { };
+// window.animateOnScroll = function () {
+//     originalAnimateOnScroll();
+//     checkAchievementsInView();
+// };
 
 // Form submission (you'll need to implement your own backend or use a service like Formspree)
 if (contactForm) {
-    contactForm.addEventListener('submit', (e) => {
+    contactForm.addEventListener('submit', async (e) => {
         e.preventDefault();
+
+        // Clear previous messages
+        formMessages.textContent = '';
+        formMessages.classList.remove('success', 'error');
+
+        // Disable button and show sending state
+        submitButton.disabled = true;
+        submitButton.textContent = 'Sending...';
 
         // Get form data
         const formData = new FormData(contactForm);
@@ -281,15 +429,38 @@ if (contactForm) {
         const subject = formData.get('subject');
         const message = formData.get('message');
 
-        // Here you would typically send the data to your backend or a service
-        // For now, we'll just log it and show a success message
-        console.log({ name, email, subject, message });
+        // Basic client-side validation
+        if (!name || !email || !subject || !message) {
+            formMessages.textContent = 'Please fill in all fields.';
+            formMessages.classList.add('error');
+            submitButton.disabled = false;
+            submitButton.textContent = 'Send Message';
+            return;
+        }
 
-        // Show success message
-        alert('Thank you for your message! I will get back to you soon.');
+        try {
+            // Simulate network request
+            await new Promise(resolve => setTimeout(resolve, 2000));
 
-        // Reset form
-        contactForm.reset();
+            // Simulate success or failure
+            const success = Math.random() > 0.1; // 90% chance of success
+
+            if (success) {
+                formMessages.textContent = 'Thank you for your message! I will get back to you soon.';
+                formMessages.classList.add('success');
+                contactForm.reset();
+            } else {
+                formMessages.textContent = 'Oops! Something went wrong. Please try again later.';
+                formMessages.classList.add('error');
+            }
+        } catch (error) {
+            console.error('Form submission error:', error);
+            formMessages.textContent = 'An unexpected error occurred. Please try again.';
+            formMessages.classList.add('error');
+        } finally {
+            submitButton.disabled = false;
+            submitButton.textContent = 'Send Message';
+        }
     });
 }
 
@@ -332,32 +503,6 @@ function addGlitchEffect() {
 
 // Run glitch effect periodically
 setInterval(addGlitchEffect, 2000);
-
-// Add cosmic dust effect
-function createScanlines() {
-    const cosmicDust = document.createElement('div');
-    cosmicDust.classList.add('cosmic-dust');
-    cosmicDust.style.position = 'fixed';
-    cosmicDust.style.top = '0';
-    cosmicDust.style.left = '0';
-    cosmicDust.style.width = '100%';
-    cosmicDust.style.height = '100%';
-    cosmicDust.style.pointerEvents = 'none';
-    cosmicDust.style.zIndex = '9998';
-    cosmicDust.style.backgroundImage = 'radial-gradient(circle, rgba(255, 255, 255, 0.1) 1px, transparent 1px)';
-    cosmicDust.style.backgroundSize = '15px 15px';
-    cosmicDust.style.opacity = '0.3';
-    document.body.appendChild(cosmicDust);
-
-    // Animate cosmic dust
-    let dustX = 0;
-    let dustY = 0;
-    setInterval(() => {
-        dustX += 0.2;
-        dustY += 0.1;
-        cosmicDust.style.backgroundPosition = `${dustX}px ${dustY}px`;
-    }, 50);
-}
 
 // Add galaxy boot sequence
 function bootSequence() {
@@ -434,7 +579,6 @@ function setActiveNavLink() {
         });
     });
 }
-
 
 // --- CERTIFICATE MODAL FUNCTIONALITY ---
 
@@ -754,4 +898,4 @@ document.addEventListener('keydown', e => {
     if (e.key === 'Escape' && certificateModal.style.display === 'block') {
         closeCertificateModal();
     }
-});
+}); 
