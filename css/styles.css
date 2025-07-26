@@ -269,15 +269,15 @@ nav {
     letter-spacing: 5px;
 }
 
-.logo::after {
-    content: 'EXPLORER';
+/* .logo::after {
+    content: 'PORTFOLIO';
     position: absolute;
     bottom: -10px;
     right: 0;
     font-size: 0.5rem;
     color: var(--accent-color);
     letter-spacing: 3px;
-}
+} */
 
 .nav-links {
     display: flex;
@@ -486,15 +486,15 @@ nav {
     animation: textGlitch 5s infinite alternate;
 }
 
-.hero h1::before {
-    content: 'GALAXY EXPLORER';
+/* .hero h1::before {
+    content: 'PORTFOLIO';
     position: absolute;
     top: -20px;
     left: 0;
     font-size: 0.8rem;
     color: var(--secondary-color);
     letter-spacing: 2px;
-}
+} */
 
 .hero h1 .highlight {
     position: relative;
@@ -1526,7 +1526,7 @@ footer::before {
 }
 
 footer::after {
-    content: 'COSMIC EXPLORER';
+    content: 'PORTFOLIO';
     position: absolute;
     bottom: 5px;
     right: 20px;

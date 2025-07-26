@@ -13,21 +13,12 @@ const contactContent = document.querySelector('.contact-content');
 const heroSection = document.querySelector('.hero');
 
 document.addEventListener('DOMContentLoaded', () => {
-    // Start boot sequence
     bootSequence();
-
-    // Set active nav link based on current section
     setActiveNavLink();
-
-    // Animate elements if they're in the viewport
     setTimeout(() => {
         animateOnScroll();
-    }, 4000); // Delay until after boot sequence
-
-    // Start glitch effect after page load
+    }, 4000);
     setTimeout(addGlitchEffect, 4000);
-
-    // Create digital noise overlay
     setTimeout(() => {
         createDigitalNoiseOverlay();
         createScanlines();
@@ -232,19 +223,19 @@ function animateOnScroll() {
 // Counter animation for statistics
 function animateCounters() {
     const counters = document.querySelectorAll('.stat-number');
-    
+
     counters.forEach(counter => {
         const target = parseInt(counter.getAttribute('data-target'));
         const increment = target / 100;
         let current = 0;
-        
+
         const timer = setInterval(() => {
             current += increment;
             if (current >= target) {
                 current = target;
                 clearInterval(timer);
             }
-            
+
             // Format number based on target
             if (target >= 100000) {
                 counter.textContent = Math.floor(current).toLocaleString() + '+';
@@ -261,10 +252,10 @@ function animateCounters() {
 function checkAchievementsInView() {
     const achievementsSection = document.querySelector('#achievements');
     if (!achievementsSection) return;
-    
+
     const rect = achievementsSection.getBoundingClientRect();
     const isInView = rect.top >= 0 && rect.top <= window.innerHeight;
-    
+
     if (isInView && !achievementsSection.classList.contains('animated')) {
         achievementsSection.classList.add('animated');
         animateCounters();
@@ -272,8 +263,8 @@ function checkAchievementsInView() {
 }
 
 // Add to scroll event listener
-const originalAnimateOnScroll = window.animateOnScroll || function() {};
-window.animateOnScroll = function() {
+const originalAnimateOnScroll = window.animateOnScroll || function () { };
+window.animateOnScroll = function () {
     originalAnimateOnScroll();
     checkAchievementsInView();
 };
@@ -492,6 +483,34 @@ const certificateData = {
     'computer-law-2023': {
         title: 'Computer Law (2023)',
         pdf: 'assets/certificates/Computer Law.pdf'
+    },
+    'cloud-security-2024': {
+        title: 'Cloud Security (2024)',
+        pdf: 'assets/certificates/Cloud Security.pdf'
+    },
+    'data-classification-2024': {
+        title: 'Data Classification (2024)',
+        pdf: 'assets/certificates/Data Classification.pdf'
+    },
+    'mobile-device-security-2024': {
+        title: 'Mobile Device Security (2024)',
+        pdf: 'assets/certificates/Mobile Device Security.pdf'
+    },
+    'password-security-policy-2024': {
+        title: 'Password Security Policy (2024)',
+        pdf: 'assets/certificates/Password Security Policy.pdf'
+    },
+    'ransomware-training-2024': {
+        title: 'Ransomware Training (2024)',
+        pdf: 'assets/certificates/Ransomware Training.pdf'
+    },
+    'shared-password-policy-2024': {
+        title: 'Shared Password Policy (2024)',
+        pdf: 'assets/certificates/Shared Password Policy.pdf'
+    },
+    'safe-web-browsing-2024': {
+        title: 'Safe Web Browsing (2024)',
+        pdf: 'assets/certificates/Safe Web Browsing.pdf'
     }
 };
 
@@ -603,14 +622,14 @@ function downloadCertificate(url, title) {
 
 // Event listeners for certificate items
 document.querySelectorAll('.clickable-cert').forEach(cert => {
-    cert.addEventListener('click', function() {
+    cert.addEventListener('click', function () {
         openCertificateModal(this.dataset.cert);
     });
 });
 
 // Event listeners for tabs
 document.querySelectorAll('.cert-tab').forEach(tab => {
-    tab.addEventListener('click', function() {
+    tab.addEventListener('click', function () {
         setActiveTab(this.dataset.tab);
     });
 });
