@@ -1076,6 +1076,26 @@ nav {
     color: var(--secondary-color);
 }
 
+/* New styles for company logo in timeline */
+.company-name-with-logo {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* ระยะห่างระหว่างโลโก้กับชื่อบริษัท */
+}
+
+.company-logo {
+    width: 40px; /* ขนาดของโลโก้ */
+    height: 40px;
+    object-fit: contain; /* รักษาสัดส่วนของรูปภาพ */
+    border-radius: 5px; /* ทำให้โลโก้มีขอบมนเล็กน้อย */
+    box-shadow: 0 0 10px rgba(110, 87, 224, 0.3); /* เพิ่มเงาเรืองแสง */
+    transition: transform 0.3s ease; /* เพิ่ม transition สำหรับ hover effect */
+}
+
+.company-logo:hover {
+    transform: scale(1.1); /* ขยายภาพเมื่อ hover */
+}
+
 /* Timeline Enhancements */
 .timeline-achievements {
     margin: 15px 0;
@@ -2487,4 +2507,24 @@ footer::after {
     .cert-modal-body {
         padding: 20px;
     }
+}
+
+.skill-tag {
+    background-color: rgba(77, 201, 255, 0.1);
+    color: var(--accent-color);
+    padding: 0.4rem 0.8rem;
+    border-radius: 5px;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.9rem;
+    border: 1px solid rgba(77, 201, 255, 0.2);
+    transition: background-color 0.3s ease, color 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+
+.skill-wow-card:hover .skill-tag {
+    background-color: rgba(255, 107, 158, 0.1);
+    color: var(--secondary-color);
+    border-color: rgba(255, 107, 158, 0.2);
 }
