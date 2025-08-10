@@ -12,6 +12,7 @@ const timelineContents = document.querySelectorAll('.timeline-content');
 const contactContent = document.querySelector('.contact-content');
 const heroSection = document.querySelector('.hero');
 const aboutToggles = document.querySelectorAll('.about-toggle');
+const aboutReadMore = document.querySelector('.about-readmore');
 
 aboutToggles.forEach(btn => {
     btn.addEventListener('click', () => {
@@ -22,6 +23,15 @@ aboutToggles.forEach(btn => {
         btn.setAttribute('aria-expanded', isOpen);
     });
 });
+
+if (aboutReadMore) {
+    aboutReadMore.addEventListener('click', () => {
+        const aboutText = document.querySelector('.about-text');
+        const expanded = aboutText.classList.toggle('expanded');
+        aboutReadMore.textContent = expanded ? 'Show Less' : 'Read More';
+        aboutReadMore.setAttribute('aria-expanded', expanded);
+    });
+}
 
 document.addEventListener('DOMContentLoaded', () => {
     bootSequence();
