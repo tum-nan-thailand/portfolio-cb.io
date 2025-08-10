@@ -20,83 +20,9 @@ document.addEventListener('DOMContentLoaded', () => {
     }, 4000);
     setTimeout(addGlitchEffect, 4000);
     setTimeout(() => {
-        createDigitalNoiseOverlay();
-        createScanlines();
+        createMatrixRain();
     }, 3800);
 });
-
-
-// Create galaxy stars overlay
-function createDigitalNoiseOverlay() {
-    // Create a canvas for galaxy particles
-    const galaxyCanvas = document.createElement('canvas');
-    galaxyCanvas.classList.add('galaxy-canvas');
-    galaxyCanvas.style.position = 'fixed';
-    galaxyCanvas.style.top = '0';
-    galaxyCanvas.style.left = '0';
-    galaxyCanvas.style.width = '100%';
-    galaxyCanvas.style.height = '100%';
-    galaxyCanvas.style.pointerEvents = 'none';
-    galaxyCanvas.style.zIndex = '9999';
-    galaxyCanvas.style.opacity = '0.3';
-    document.body.appendChild(galaxyCanvas);
-
-    // Set canvas size
-    galaxyCanvas.width = window.innerWidth;
-    galaxyCanvas.height = window.innerHeight;
-
-    // Get canvas context
-    const ctx = galaxyCanvas.getContext('2d');
-
-    // Create stars
-    const stars = [];
-    const numStars = 100;
-
-    for (let i = 0; i < numStars; i++) {
-        stars.push({
-            x: Math.random() * galaxyCanvas.width,
-            y: Math.random() * galaxyCanvas.height,
-            radius: Math.random() * 1.5,
-            color: i % 3 === 0 ? '#ffde59' : (i % 2 === 0 ? '#4dc9ff' : '#ffffff'),
-            speed: Math.random() * 0.5
-        });
-    }
-
-    // Animation function
-    function animateGalaxy() {
-        // Clear canvas
-        ctx.clearRect(0, 0, galaxyCanvas.width, galaxyCanvas.height);
-
-        // Draw stars
-        stars.forEach(star => {
-            ctx.beginPath();
-            ctx.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
-            ctx.fillStyle = star.color;
-            ctx.fill();
-
-            // Move star
-            star.x += star.speed;
-
-            // Reset star position if it goes off screen
-            if (star.x > galaxyCanvas.width) {
-                star.x = 0;
-            }
-        });
-
-        // Request next frame
-        requestAnimationFrame(animateGalaxy);
-    }
-
-    // Start animation
-    animateGalaxy();
-
-    // Handle window resize
-    window.addEventListener('resize', () => {
-        galaxyCanvas.width = window.innerWidth;
-        galaxyCanvas.height = window.innerHeight;
-    });
-}
-
 
 // Mobile Menu Toggle
 hamburger.addEventListener('click', () => {
@@ -295,7 +221,7 @@ if (contactForm) {
 
 // Galaxy shimmer effect for text elements
 function addGlitchEffect() {
-    const glitchElements = document.querySelectorAll('.hero h1, .hero h2, .section-title, .logo, .btn');
+    const glitchElements = document.querySelectorAll('.hero h1, .hero h2, .hero .tagline-text, .section-title, .logo, .btn');
 
     glitchElements.forEach(element => {
         // Random chance to apply shimmer effect
@@ -333,30 +259,55 @@ function addGlitchEffect() {
 // Run glitch effect periodically
 setInterval(addGlitchEffect, 2000);
 
-// Add cosmic dust effect
-function createScanlines() {
-    const cosmicDust = document.createElement('div');
-    cosmicDust.classList.add('cosmic-dust');
-    cosmicDust.style.position = 'fixed';
-    cosmicDust.style.top = '0';
-    cosmicDust.style.left = '0';
-    cosmicDust.style.width = '100%';
-    cosmicDust.style.height = '100%';
-    cosmicDust.style.pointerEvents = 'none';
-    cosmicDust.style.zIndex = '9998';
-    cosmicDust.style.backgroundImage = 'radial-gradient(circle, rgba(255, 255, 255, 0.1) 1px, transparent 1px)';
-    cosmicDust.style.backgroundSize = '15px 15px';
-    cosmicDust.style.opacity = '0.3';
-    document.body.appendChild(cosmicDust);
+// Matrix-style digital rain effect
+function createMatrixRain() {
+    const matrixCanvas = document.createElement('canvas');
+    matrixCanvas.classList.add('matrix-rain');
+    matrixCanvas.style.position = 'fixed';
+    matrixCanvas.style.top = '0';
+    matrixCanvas.style.left = '0';
+    matrixCanvas.style.width = '100%';
+    matrixCanvas.style.height = '100%';
+    matrixCanvas.style.pointerEvents = 'none';
+    matrixCanvas.style.zIndex = '-1';
+    document.body.appendChild(matrixCanvas);
 
-    // Animate cosmic dust
-    let dustX = 0;
-    let dustY = 0;
-    setInterval(() => {
-        dustX += 0.2;
-        dustY += 0.1;
-        cosmicDust.style.backgroundPosition = `${dustX}px ${dustY}px`;
-    }, 50);
+    const ctx = matrixCanvas.getContext('2d');
+    matrixCanvas.width = window.innerWidth;
+    matrixCanvas.height = window.innerHeight;
+
+    const characters = '01';
+    let fontSize = window.innerWidth < 768 ? 12 : 16;
+    let columns = Math.floor(matrixCanvas.width / fontSize);
+    const drops = new Array(columns).fill(1);
+
+    function draw() {
+        ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+        ctx.fillRect(0, 0, matrixCanvas.width, matrixCanvas.height);
+
+        ctx.fillStyle = '#4dc9ff';
+        ctx.font = fontSize + 'px monospace';
+
+        drops.forEach((y, index) => {
+            const text = characters.charAt(Math.floor(Math.random() * characters.length));
+            ctx.fillText(text, index * fontSize, y * fontSize);
+            if (y * fontSize > matrixCanvas.height && Math.random() > 0.975) {
+                drops[index] = 0;
+            }
+            drops[index]++;
+        });
+    }
+
+    setInterval(draw, 50);
+
+    window.addEventListener('resize', () => {
+        matrixCanvas.width = window.innerWidth;
+        matrixCanvas.height = window.innerHeight;
+        fontSize = window.innerWidth < 768 ? 12 : 16;
+        columns = Math.floor(matrixCanvas.width / fontSize);
+        drops.length = columns;
+        drops.fill(1);
+    });
 }
 
 // Add galaxy boot sequence

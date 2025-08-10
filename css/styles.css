@@ -122,6 +122,29 @@ body::after {
     }
 }
 
+@keyframes gradientShift {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+@keyframes taglinePulse {
+    from {
+        color: var(--accent-color);
+        text-shadow: 0 0 8px var(--accent-color);
+    }
+    to {
+        color: var(--secondary-color);
+        text-shadow: 0 0 16px var(--secondary-color);
+    }
+}
+
 a {
     text-decoration: none;
     color: var(--primary-color);
@@ -269,8 +292,13 @@ nav {
 .logo {
     font-size: 1.8rem;
     font-weight: 700;
-    color: var(--primary-color);
+    background: linear-gradient(90deg, var(--primary-color), var(--secondary-color), var(--accent-color));
+    background-size: 200% 200%;
+    color: transparent;
+    -webkit-background-clip: text;
+    background-clip: text;
     text-shadow: 0 0 10px var(--primary-color);
+    animation: gradientShift 5s ease infinite;
     position: relative;
     letter-spacing: 1px;
 }
@@ -558,7 +586,19 @@ nav {
     font-family: 'Share Tech Mono', monospace;
 }
 
-.hero p {
+.hero .tagline {
+    margin-bottom: 20px;
+}
+
+.hero .tagline .tagline-text {
+    display: inline-block;
+    font-family: 'Share Tech Mono', monospace;
+    color: var(--accent-color);
+    text-shadow: 0 0 8px var(--accent-color);
+    animation: taglinePulse 2s ease-in-out infinite alternate;
+}
+
+.hero p.description {
     font-size: 1.3rem;
     margin-bottom: 30px;
     color: rgba(255, 255, 255, 0.9);
@@ -569,6 +609,16 @@ nav {
     animation: typing 3.5s steps(40, end);
     white-space: nowrap;
     overflow: hidden;
+}
+
+@media (max-width: 768px) {
+    .hero p.description {
+        font-size: 1rem;
+        max-width: 100%;
+        white-space: normal;
+        overflow: visible;
+        animation: none;
+    }
 }
 
 @keyframes typing {
