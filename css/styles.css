@@ -1294,7 +1294,6 @@ nav {
 @media (max-width: 768px) {
     .about-content {
         flex-direction: column;
-        text-align: center;
         gap: 30px;
     }
 
@@ -1314,6 +1313,12 @@ nav {
 
     .about-text {
         margin-top: 20px;
+        text-align: left;
+    }
+
+    .about-text p {
+        text-align: justify;
+        overflow-wrap: break-word;
     }
 
     .timeline::before {
