@@ -2901,3 +2901,30 @@ footer::after {
         font-size: 0.9rem;
     }
 }
+
+@media (max-width: 480px) {
+    html {
+        font-size: 14px;
+    }
+
+    .section-title {
+        font-size: 2rem;
+    }
+
+    h1 {
+        font-size: 2rem;
+    }
+
+    h2 {
+        font-size: 1.5rem;
+    }
+
+    h3 {
+        font-size: 1.25rem;
+    }
+
+    .btn {
+        padding: 10px 25px;
+        font-size: 0.8rem;
+    }
+}
