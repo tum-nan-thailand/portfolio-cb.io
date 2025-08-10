@@ -14,18 +14,27 @@ const mimeTypes = {
   '.jpeg': 'image/jpeg',
   '.gif': 'image/gif',
   '.svg': 'image/svg+xml',
-  '.ico': 'image/x-icon'
+  '.ico': 'image/x-icon',
+  '.pdf': 'application/pdf'
 };
+
+const baseDir = path.resolve(__dirname);
 
 const server = http.createServer((req, res) => {
   // Decode URL to handle Thai characters properly
-  let filePath = decodeURIComponent('.' + req.url);
-  
-  // Default to index.html
-  if (filePath === './') {
-    filePath = './index.html';
+  let safePath = decodeURIComponent(req.url);
+  if (safePath === '/' || safePath === '') {
+    safePath = '/index.html';
   }
-  
+
+  // Normalize and join the path to prevent directory traversal
+  const filePath = path.resolve(baseDir, '.' + safePath);
+  if (!filePath.startsWith(baseDir)) {
+    res.writeHead(403, { 'Content-Type': 'text/html' });
+    res.end('<h1>403 - Forbidden</h1>', 'utf-8');
+    return;
+  }
+
   const extname = path.extname(filePath).toLowerCase();
   const contentType = mimeTypes[extname] || 'application/octet-stream';
   
