@@ -894,6 +894,40 @@ nav {
     font-size: 1.2rem;
 }
 
+.about-timeline {
+    margin-top: 40px;
+}
+
+.about-toggle {
+    margin-top: 10px;
+    padding: 6px 12px;
+    background: rgba(77, 201, 255, 0.1);
+    color: var(--accent-color);
+    border: 1px solid var(--accent-color);
+    border-radius: 5px;
+    cursor: pointer;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+    text-shadow: 0 0 5px var(--accent-color);
+}
+
+.about-toggle:hover {
+    background-color: var(--accent-color);
+    color: var(--bg-color);
+    box-shadow: 0 0 15px var(--accent-color);
+    transform: translateY(-3px);
+}
+
+.about-detail {
+    display: none;
+    margin-top: 10px;
+}
+
+.about-detail.open {
+    display: block;
+}
+
 /* Skills Section - Galaxy Style */
 .skills {
     padding: 100px 0;
