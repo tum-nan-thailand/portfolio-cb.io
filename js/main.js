@@ -370,8 +370,8 @@ function createMatrixRain() {
     matrixCanvas.style.width = '100%';
     matrixCanvas.style.height = '100%';
     matrixCanvas.style.pointerEvents = 'none';
-    matrixCanvas.style.zIndex = '9997';
-    document.body.appendChild(matrixCanvas);
+    matrixCanvas.style.zIndex = '-2';
+    document.body.insertBefore(matrixCanvas, document.body.firstChild);
 
     const ctx = matrixCanvas.getContext('2d');
     matrixCanvas.width = window.innerWidth;
