@@ -1272,6 +1272,22 @@ nav {
         left: 0;
     }
 
+    .timeline-content > p:not(.timeline-date) {
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .about-text p {
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
     .cert-grid {
         grid-template-columns: 1fr;
         gap: 20px;
