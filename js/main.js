@@ -11,6 +11,15 @@ const skillsContent = document.querySelector('.skills-content');
 const timelineContents = document.querySelectorAll('.timeline-content');
 const contactContent = document.querySelector('.contact-content');
 const heroSection = document.querySelector('.hero');
+const aboutToggles = document.querySelectorAll('.about-toggle');
+
+aboutToggles.forEach(btn => {
+    btn.addEventListener('click', () => {
+        const detail = btn.nextElementSibling;
+        detail.classList.toggle('open');
+        btn.textContent = detail.classList.contains('open') ? 'Hide Details' : 'Show Details';
+    });
+});
 
 document.addEventListener('DOMContentLoaded', () => {
     bootSequence();
