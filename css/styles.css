@@ -1246,12 +1246,32 @@ nav {
     transition: var(--transition);
 }
 
+
 .tech-tag:hover {
     transform: scale(1.05);
     box-shadow: var(--neon-box-shadow);
 }
 
 @media (max-width: 768px) {
+    .timeline::before {
+        left: 20px;
+    }
+
+    .timeline-dot {
+        left: 20px;
+        transform: none;
+    }
+
+    .timeline-item {
+        padding-left: 40px;
+    }
+
+    .timeline-item:nth-child(odd) .timeline-content,
+    .timeline-item:nth-child(even) .timeline-content {
+        width: 100%;
+        left: 0;
+    }
+
     .cert-grid {
         grid-template-columns: 1fr;
         gap: 20px;
@@ -1616,6 +1636,18 @@ nav {
 .form-group textarea {
     height: 150px;
     resize: vertical;
+}
+
+@media (max-width: 768px) {
+    .contact-content {
+        flex-direction: column;
+        gap: 30px;
+    }
+
+    .contact-info,
+    .contact-form {
+        flex: 1 1 100%;
+    }
 }
 
 /* Footer - Galaxy Style */
