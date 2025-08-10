@@ -45,6 +45,14 @@ document.addEventListener('DOMContentLoaded', () => {
         createScanlines();
         createMatrixRain();
     }, 3800);
+    if (typeof VanillaTilt !== 'undefined') {
+        VanillaTilt.init(document.querySelectorAll('.project-card, .skill-wow-card'), {
+            max: 15,
+            speed: 400,
+            glare: true,
+            'max-glare': 0.2
+        });
+    }
 });
 
 
