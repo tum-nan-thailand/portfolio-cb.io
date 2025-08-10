@@ -840,6 +840,9 @@ nav {
 }
 
 .about-image img {
+    width: 100%;
+    height: auto;
+    display: block;
     border-radius: 10px;
     box-shadow: 0 10px 30px var(--shadow-color);
     transition: transform 0.5s ease, box-shadow 0.5s ease;
@@ -1292,11 +1295,21 @@ nav {
     .about-content {
         flex-direction: column;
         text-align: center;
+        gap: 30px;
     }
 
     .about-image,
     .about-text {
         width: 100%;
+    }
+
+    .about-image {
+        max-width: 280px;
+        margin: 0 auto;
+    }
+
+    .about-image::before {
+        display: none;
     }
 
     .about-text {
