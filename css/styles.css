@@ -122,6 +122,18 @@ body::after {
     }
 }
 
+@keyframes gradientShift {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
 a {
     text-decoration: none;
     color: var(--primary-color);
@@ -269,8 +281,13 @@ nav {
 .logo {
     font-size: 1.8rem;
     font-weight: 700;
-    color: var(--primary-color);
+    background: linear-gradient(90deg, var(--primary-color), var(--secondary-color), var(--accent-color));
+    background-size: 200% 200%;
+    color: transparent;
+    -webkit-background-clip: text;
+    background-clip: text;
     text-shadow: 0 0 10px var(--primary-color);
+    animation: gradientShift 5s ease infinite;
     position: relative;
     letter-spacing: 1px;
 }
@@ -556,6 +573,13 @@ nav {
     text-shadow: 0 0 10px var(--accent-color);
     letter-spacing: 1px;
     font-family: 'Share Tech Mono', monospace;
+}
+
+.hero .tagline {
+    font-family: 'Share Tech Mono', monospace;
+    color: var(--accent-color);
+    margin-bottom: 20px;
+    text-shadow: 0 0 8px var(--accent-color);
 }
 
 .hero p {
