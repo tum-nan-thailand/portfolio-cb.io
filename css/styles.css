@@ -920,12 +920,14 @@ nav {
 }
 
 .about-detail {
-    display: none;
+    max-height: 0;
+    overflow: hidden;
     margin-top: 10px;
+    transition: max-height 0.3s ease;
 }
 
 .about-detail.open {
-    display: block;
+    max-height: 500px;
 }
 
 /* Skills Section - Galaxy Style */
@@ -1287,6 +1289,20 @@ nav {
 }
 
 @media (max-width: 768px) {
+    .about-content {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .about-image,
+    .about-text {
+        width: 100%;
+    }
+
+    .about-text {
+        margin-top: 20px;
+    }
+
     .timeline::before {
         left: 20px;
     }

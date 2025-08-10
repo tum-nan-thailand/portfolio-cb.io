@@ -16,8 +16,10 @@ const aboutToggles = document.querySelectorAll('.about-toggle');
 aboutToggles.forEach(btn => {
     btn.addEventListener('click', () => {
         const detail = btn.nextElementSibling;
-        detail.classList.toggle('open');
-        btn.textContent = detail.classList.contains('open') ? 'Hide Details' : 'Show Details';
+        const isOpen = detail.classList.toggle('open');
+        detail.style.maxHeight = isOpen ? detail.scrollHeight + 'px' : '0';
+        btn.textContent = isOpen ? 'Hide Details' : 'Show Details';
+        btn.setAttribute('aria-expanded', isOpen);
     });
 });
 
