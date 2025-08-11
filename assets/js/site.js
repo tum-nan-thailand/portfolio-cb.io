@@ -163,8 +163,11 @@ function repoCard(r){
   <a class="card" href="${r.html_url}" target="_blank" rel="noopener">
     <h3>${r.name}</h3>
     <p>${r.description||''}</p>
-    <small>★ ${r.stargazers_count} • ${r.language||'—'}</small>
-    <div style="margin-top:8px">${tagHtml}</div>
+    <small>
+      <i class="fa-solid fa-star"></i> ${r.stargazers_count}
+      <i class="fa-solid fa-code"></i> ${r.language||'—'}
+    </small>
+    <div class="tags">${tagHtml}</div>
     ${csHtml}
   </a>`;
 }
