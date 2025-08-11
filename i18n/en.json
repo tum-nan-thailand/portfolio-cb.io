@@ -1,0 +1,10 @@
+{
+  "labels": {
+    "certificate": "Certificate",
+    "caseStudy": "Case Study",
+    "problem": "Problem",
+    "solution": "Solution",
+    "impact": "Impact",
+    "metrics": "Metrics"
+  }
+}

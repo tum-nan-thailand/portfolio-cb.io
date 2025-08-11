@@ -118,8 +118,26 @@
             border-color: rgba(255, 107, 158, 0.2);
         }
     </style>
+    <!-- THEME & I18N BOOT -->
+    <script>
+    (function(){
+      const saved = localStorage.getItem('theme');
+      const auto = window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';
+      document.documentElement.setAttribute('data-theme', saved || auto);
+      const lang = localStorage.getItem('lang') || 'th';
+      document.documentElement.setAttribute('lang', lang);
+    })();
+    </script>
+    <link rel="stylesheet" href="assets/css/site.css">
+    <script defer src="assets/js/site.js"></script>
 </head>
 <body>
+    <header class="site-header">
+      <div class="flex-grow"></div>
+      <input id="search-projects" placeholder="ค้นหาโปรเจกต์..." aria-label="Search projects">
+      <button id="langToggle" aria-label="Toggle language">TH/EN</button>
+      <button id="themeToggle" aria-label="Toggle dark mode">🌙/☀️</button>
+    </header>
     <header>
         <div class="container">
             <nav>
@@ -134,10 +152,6 @@
                     <li><a href="#education">Education</a></li>
                     <li><a href="#contact">Contact</a></li>
                 </ul>
-
-                <div class="theme-toggle">
-                    <i class="fas fa-moon"></i>
-                </div>
 
                 <div class="hamburger">
                     <div class="line"></div>
@@ -378,137 +392,77 @@
         </div>
     </section>
 
-    <section id="projects" class="projects">
-        <div class="container">
-            <h2 class="section-title">My Projects</h2>
-            <div class="project-filters">
-                <button class="filter-btn active" data-filter="all">ALL_PROJECTS</button>
-            </div>
-            <div class="projects-grid">
-                <div class="project-card" data-category="github">
-                    <div class="project-img">
-                        <img src="https://opengraph.githubassets.com/1/tum-nan-thailand/sorsery" alt="sorsery" onerror="this.onerror=null;this.src='assets/images/portfolio-default.png';">
-                    </div>
-                    <div class="project-info">
-                        <div class="project-header">
-                            <h3>sorsery</h3>
-                            <span class="project-id">#GitHub</span>
-                        </div>
-                        <p>Node.js library that simplifies transforming streams, supporting asynchronous, out-of-order, and parallel processing. It allows you to manipulate data streams in an efficient and scalable way.</p>
-                        <div class="project-meta">
-                            <span class="project-tech">TECH: JavaScript, Node.js</span>
-                        </div>
-                        <div class="project-links">
-                            <a href="https://github.com/tum-nan-thailand/sorsery" target="_blank"><i class="fab fa-github"></i> VIEW ON GITHUB</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="project-card" data-category="github">
-                    <div class="project-img">
-                        <img src="https://opengraph.githubassets.com/1/tum-nan-thailand/My-Job-Tracker" alt="My-Job-Tracker" onerror="this.onerror=null;this.src='assets/images/portfolio-default.png';">
-                    </div>
-                    <div class="project-info">
-                        <div class="project-header">
-                            <h3>My-Job-Tracker</h3>
-                            <span class="project-id">#GitHub</span>
-                        </div>
-                        <p>The application is designed to help users manage and track their job applications efficiently.</p>
-                        <div class="project-meta">
-                            <span class="project-tech">TECH: TypeScript</span>
-                        </div>
-                        <div class="project-links">
-                            <a href="https://github.com/tum-nan-thailand/My-Job-Tracker" target="_blank"><i class="fab fa-github"></i> VIEW ON GITHUB</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="project-card" data-category="github">
-                    <div class="project-img">
-                        <img src="https://opengraph.githubassets.com/1/tum-nan-thailand/git-easy" alt="git-easy" onerror="this.onerror=null;this.src='assets/images/portfolio-default.png';">
-                    </div>
-                    <div class="project-info">
-                        <div class="project-header">
-                            <h3>git-easy</h3>
-                            <span class="project-id">#GitHub</span>
-                        </div>
-                        <p>Git Easy: คู่มือ Git ภาษาไทยที่เข้าใจง่าย มีตัวอย่าง สถานการณ์จำลอง และแนวทางแก้ปัญหา ครอบคลุมทั้ง Git Flow, การแก้ไขปัญหาขั้นสูง และการจัดการ Version Release</p>
-                        <div class="project-meta">
-                            <span class="project-tech">TECH: Markdown, Documentation</span>
-                        </div>
-                        <div class="project-links">
-                            <a href="https://github.com/tum-nan-thailand/git-easy" target="_blank"><i class="fab fa-github"></i> VIEW ON GITHUB</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+    <section id="projects">
+      <div class="chips" id="project-chips"></div>
+      <div id="project-cards" class="grid"></div>
     </section>
 
     <section id="certifications" class="certifications">
         <div class="container">
             <h2 class="section-title">Certifications</h2>
             <div class="cert-grid">
-                <div class="cert-item clickable-cert" data-cert="phishing-2024">
+                <div class="cert-item">
                     <div class="cert-icon"><i class="fas fa-fish"></i></div>
                     <div class="cert-info">
                         <h3>Phishing Attack Training (2024)</h3>
                         <p>Completed training on identifying and preventing phishing attacks.</p>
-                        <div class="cert-view-btn">View Certificate</div>
+                        <a href="#" class="cert-view-btn open-cert" data-pdf="https://raw.githubusercontent.com/tum-nan-thailand/portfolio-cb.io/main/assets/certificates/Phishing Attack Training.pdf">View Certificate</a>
                     </div>
                 </div>
-                <div class="cert-item clickable-cert" data-cert="ransomware-2024">
+                <div class="cert-item">
                     <div class="cert-icon"><i class="fas fa-skull-crossbones"></i></div>
                     <div class="cert-info">
                         <h3>Ransomware Training (2024)</h3>
                         <p>Understanding and mitigating the risks of ransomware threats.</p>
-                        <div class="cert-view-btn">View Certificate</div>
+                        <a href="#" class="cert-view-btn open-cert" data-pdf="https://raw.githubusercontent.com/tum-nan-thailand/portfolio-cb.io/main/assets/certificates/Ransomware.pdf">View Certificate</a>
                     </div>
                 </div>
-                <div class="cert-item clickable-cert" data-cert="incident-report-2024">
+                <div class="cert-item">
                     <div class="cert-icon"><i class="fas fa-bullhorn"></i></div>
                     <div class="cert-info">
                         <h3>Cyber Incident Reporting (2024)</h3>
                         <p>Training on the procedures for reporting cybersecurity incidents.</p>
-                        <div class="cert-view-btn">View Certificate</div>
+                        <a href="#" class="cert-view-btn open-cert" data-pdf="https://raw.githubusercontent.com/tum-nan-thailand/portfolio-cb.io/main/assets/certificates/Rise Cyber Incident.pdf">View Certificate</a>
                     </div>
                 </div>
-                <div class="cert-item clickable-cert" data-cert="safe-web-2024">
+                <div class="cert-item">
                     <div class="cert-icon"><i class="fas fa-shield-alt"></i></div>
                     <div class="cert-info">
                         <h3>Safe Web Browse (2024)</h3>
                         <p>Best practices for using the web securely.</p>
-                        <div class="cert-view-btn">View Certificate</div>
+                        <a href="#" class="cert-view-btn open-cert" data-pdf="https://raw.githubusercontent.com/tum-nan-thailand/portfolio-cb.io/main/assets/certificates/Safe Web.pdf">View Certificate</a>
                     </div>
                 </div>
-                <div class="cert-item clickable-cert" data-cert="public-wifi-2024">
+                <div class="cert-item">
                     <div class="cert-icon"><i class="fas fa-wifi"></i></div>
                     <div class="cert-info">
                         <h3>Public Wi-Fi Security (2024)</h3>
                         <p>Awareness training on the safe use of public Wi-Fi networks.</p>
-                        <div class="cert-view-btn">View Certificate</div>
+                        <a href="#" class="cert-view-btn open-cert" data-pdf="https://raw.githubusercontent.com/tum-nan-thailand/portfolio-cb.io/main/assets/certificates/Public Wi-Fi.pdf">View Certificate</a>
                     </div>
                 </div>
-                <div class="cert-item clickable-cert" data-cert="password-policy-2024">
+                <div class="cert-item">
                     <div class="cert-icon"><i class="fas fa-key"></i></div>
                     <div class="cert-info">
                         <h3>Password Policy (2024)</h3>
                         <p>Understanding and applying secure password policies.</p>
-                        <div class="cert-view-btn">View Certificate</div>
+                        <a href="#" class="cert-view-btn open-cert" data-pdf="https://raw.githubusercontent.com/tum-nan-thailand/portfolio-cb.io/main/assets/certificates/Password Policy.pdf">View Certificate</a>
                     </div>
                 </div>
-                <div class="cert-item clickable-cert" data-cert="malware-2023">
+                <div class="cert-item">
                     <div class="cert-icon"><i class="fas fa-bug"></i></div>
                     <div class="cert-info">
                         <h3>Malware Threats (2023)</h3>
                         <p>Introductory course on malware threats and prevention.</p>
-                        <div class="cert-view-btn">View Certificate</div>
+                        <a href="#" class="cert-view-btn open-cert" data-pdf="https://raw.githubusercontent.com/tum-nan-thailand/portfolio-cb.io/main/assets/certificates/Malware Threats.pdf">View Certificate</a>
                     </div>
                 </div>
-                <div class="cert-item clickable-cert" data-cert="computer-law-2023">
+                <div class="cert-item">
                     <div class="cert-icon"><i class="fas fa-gavel"></i></div>
                     <div class="cert-info">
                         <h3>Computer Law (2023)</h3>
                         <p>Awareness training on computer-related laws and regulations.</p>
-                        <div class="cert-view-btn">View Certificate</div>
+                        <a href="#" class="cert-view-btn open-cert" data-pdf="https://raw.githubusercontent.com/tum-nan-thailand/portfolio-cb.io/main/assets/certificates/Computer Law.pdf">View Certificate</a>
                     </div>
                 </div>
             </div>
@@ -555,6 +509,20 @@
                         <a href="https://www.linkedin.com/in/punthawee-sorseang-0775ba1b3" target="_blank"><i class="fab fa-linkedin"></i></a>
                         <a href="https://github.com/tum-nan-thailand" target="_blank"><i class="fab fa-github"></i></a>
                     </div>
+                    <div id="my-contact"
+                         data-name="Punthawee Sorseang"
+                         data-title="Senior Backend Developer"
+                         data-org="Carabao Tawandang"
+                         data-email="punthaweeso@gmail.com"
+                         data-tel="+66-90-972-4819"
+                         data-url="https://tum-nan-thailand.github.io/portfolio-cb.io"></div>
+
+                    <div class="contact-actions">
+                      <button class="btn" id="copyEmail">คัดลอกอีเมล</button>
+                      <button class="btn" id="copyTel">คัดลอกเบอร์</button>
+                      <a class="btn" id="downloadVcf" download="contact.vcf" href="#">ดาวน์โหลด vCard</a>
+                      <button class="btn" id="showQR">QR ติดต่อ</button>
+                    </div>
                 </div>
                 <div class="contact-form">
                     <form id="contactForm" action="https://formspree.io/f/mvojnqdb" method="POST">
@@ -577,45 +545,6 @@
         </div>
     </section>
     
-    <div id="certificateModal" class="cert-modal">
-        <div class="cert-modal-content">
-            <div class="cert-modal-header">
-                <h3 id="certModalTitle">Certificate Title</h3>
-                <span class="cert-close">&times;</span>
-            </div>
-            <div class="cert-modal-body">
-                <div class="cert-view-tabs">
-                    <button class="cert-tab active" data-tab="image"><i class="fas fa-image"></i> Image View</button>
-                    <button class="cert-tab" data-tab="pdf"><i class="fas fa-file-pdf"></i> PDF View</button>
-                </div>
-                <div class="cert-content">
-                    <div class="cert-view active" id="cert-image-view">
-                        <div class="cert-modal-loading">
-                            <i class="fas fa-spinner"></i>
-                            <p>Loading Certificate...</p>
-                        </div>
-                        <img id="certModalImage" src="" alt="Certificate Preview">
-                    </div>
-                    <div class="cert-view" id="cert-pdf-view">
-                         <iframe id="certModalPDF" src="" frameborder="0"></iframe>
-                         <div class="pdf-fallback" style="display: none;">
-                            <i class="fas fa-exclamation-triangle"></i>
-                            <p>Your browser may not support viewing PDFs directly.</p>
-                            <p>Please use the download button.</p>
-                        </div>
-                    </div>
-                    <div class="cert-modal-error" style="display: none;">
-                        <i class="fas fa-exclamation-triangle"></i>
-                        <p>Error loading certificate.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="cert-modal-footer">
-                <button id="certDownloadBtn" class="cert-download-btn"><i class="fas fa-download"></i> Download PDF</button>
-            </div>
-        </div>
-    </div>
-
     <!-- Experience Detail Modal -->
     <div id="experienceDetailModal" class="experience-modal">
         <div class="experience-modal-content">
