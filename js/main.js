@@ -13,6 +13,10 @@ const contactContent = document.querySelector('.contact-content');
 const heroSection = document.querySelector('.hero');
 const aboutToggles = document.querySelectorAll('.about-toggle');
 const aboutReadMore = document.querySelector('.about-readmore');
+const copyBtns = document.querySelectorAll('.copy-btn');
+const downloadVCardBtn = document.getElementById('downloadVCard');
+const downloadQRBtn = document.getElementById('downloadQR');
+const langButtons = document.querySelectorAll('.lang-toggle button');
 
 aboutToggles.forEach(btn => {
     btn.addEventListener('click', () => {
@@ -786,7 +790,8 @@ async function loadImageContent() {
 
 function loadPDFContent() {
     certModalLoading.style.display = 'none';
-    certModalPDF.src = currentCertData.pdf;
+    const viewer = 'https://mozilla.github.io/pdf.js/web/viewer.html?file=' + encodeURIComponent(currentCertData.pdf);
+    certModalPDF.src = viewer;
 }
 
 function showErrorMessage(message) {
@@ -831,4 +836,70 @@ document.addEventListener('keydown', e => {
     if (e.key === 'Escape' && certificateModal.style.display === 'block') {
         closeCertificateModal();
     }
+});
+
+// Copy contact info
+copyBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+        const target = document.getElementById(btn.dataset.copyTarget);
+        if (target) {
+            navigator.clipboard.writeText(target.textContent.trim());
+        }
+    });
+});
+
+// vCard download
+if (downloadVCardBtn) {
+    downloadVCardBtn.addEventListener('click', () => {
+        const vcard = `BEGIN:VCARD\nVERSION:3.0\nFN:Punthawee Sorseang\nEMAIL:punthaweeso@gmail.com\nTEL:+66909724819\nEND:VCARD`;
+        const blob = new Blob([vcard], { type: 'text/vcard' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'punthawee-sorseang.vcf';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+    });
+}
+
+// QR download
+if (downloadQRBtn) {
+    downloadQRBtn.addEventListener('click', () => {
+        const data = encodeURIComponent('MECARD:N:Punthawee Sorseang;TEL:+66909724819;EMAIL:punthaweeso@gmail.com;;');
+        const url = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${data}`;
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'contact-qr.png';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+    });
+}
+
+// Language switcher
+function setLanguage(lang) {
+    fetch(`assets/i18n/${lang}.json`)
+        .then(res => res.json())
+        .then(data => {
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (data[key]) {
+                    el.textContent = data[key];
+                }
+            });
+            localStorage.setItem('lang', lang);
+            document.documentElement.setAttribute('lang', lang);
+            langButtons.forEach(b => b.classList.toggle('active', b.dataset.lang === lang));
+        });
+}
+
+const savedLang = localStorage.getItem('lang') || (navigator.language.startsWith('th') ? 'th' : 'en');
+setLanguage(savedLang);
+
+langButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+        setLanguage(btn.dataset.lang);
+    });
 });

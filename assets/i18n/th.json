@@ -1,0 +1,15 @@
+{
+  "nav.home": "หน้าแรก",
+  "nav.about": "เกี่ยวกับ",
+  "nav.skills": "ทักษะ",
+  "nav.experience": "ประสบการณ์",
+  "nav.projects": "โครงการ",
+  "nav.certifications": "ใบรับรอง",
+  "nav.education": "การศึกษา",
+  "nav.contact": "ติดต่อ",
+  "contact.title": "ติดต่อเรา",
+  "contact.email": "อีเมล",
+  "contact.phone": "โทรศัพท์",
+  "contact.vcard": "ดาวน์โหลด vCard",
+  "contact.qr": "ดาวน์โหลด QR"
+}

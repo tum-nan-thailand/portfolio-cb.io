@@ -1,0 +1,15 @@
+{
+  "nav.home": "Home",
+  "nav.about": "About",
+  "nav.skills": "Skills",
+  "nav.experience": "Experience",
+  "nav.projects": "Projects",
+  "nav.certifications": "Certifications",
+  "nav.education": "Education",
+  "nav.contact": "Contact",
+  "contact.title": "Get In Touch",
+  "contact.email": "Email",
+  "contact.phone": "Phone",
+  "contact.vcard": "Download vCard",
+  "contact.qr": "Download QR"
+}
