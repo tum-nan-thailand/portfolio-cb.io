@@ -712,7 +712,7 @@
 
             const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)');
             const savedTheme = localStorage.getItem('theme');
-            const initialTheme = savedTheme || (systemPrefersDark.matches ? 'dark' : 'light');
+            const initialTheme = savedTheme || 'dark';
             applyTheme(initialTheme);
 
             systemPrefersDark.addEventListener('change', e => {

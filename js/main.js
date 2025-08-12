@@ -895,7 +895,7 @@ function setLanguage(lang) {
         });
 }
 
-const savedLang = localStorage.getItem('lang') || (navigator.language.startsWith('th') ? 'th' : 'en');
+const savedLang = localStorage.getItem('lang') || 'en';
 setLanguage(savedLang);
 
 langButtons.forEach(btn => {
