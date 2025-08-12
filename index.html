@@ -125,15 +125,20 @@
             <nav>
                 <div class="logo">Punthawee Sorseang<span class="logo-blink">_</span></div>
                 <ul class="nav-links">
-                    <li><a href="#home">Home</a></li>
-                    <li><a href="#about">About</a></li>
-                    <li><a href="#skills">Skills</a></li>
-                    <li><a href="#experience">Experience</a></li>
-                    <li><a href="#projects">Projects</a></li>
-                    <li><a href="#certifications">Certifications</a></li>
-                    <li><a href="#education">Education</a></li>
-                    <li><a href="#contact">Contact</a></li>
+                    <li><a href="#home" data-i18n="nav.home">Home</a></li>
+                    <li><a href="#about" data-i18n="nav.about">About</a></li>
+                    <li><a href="#skills" data-i18n="nav.skills">Skills</a></li>
+                    <li><a href="#experience" data-i18n="nav.experience">Experience</a></li>
+                    <li><a href="#projects" data-i18n="nav.projects">Projects</a></li>
+                    <li><a href="#certifications" data-i18n="nav.certifications">Certifications</a></li>
+                    <li><a href="#education" data-i18n="nav.education">Education</a></li>
+                    <li><a href="#contact" data-i18n="nav.contact">Contact</a></li>
                 </ul>
+
+                <div class="lang-toggle">
+                    <button data-lang="en">EN</button>
+                    <button data-lang="th">TH</button>
+                </div>
 
                 <div class="theme-toggle">
                     <i class="fas fa-moon"></i>
@@ -534,22 +539,32 @@
 
     <section id="contact" class="contact">
         <div class="container">
-            <h2 class="section-title">Get In Touch</h2>
+            <h2 class="section-title" data-i18n="contact.title">Get In Touch</h2>
             <div class="contact-content">
                 <div class="contact-info">
                     <div class="contact-item">
                         <i class="fas fa-envelope"></i>
                         <div>
-                            <h3>Email</h3>
-                            <p><a href="mailto:punthaweeso@gmail.com">punthaweeso@gmail.com</a></p>
+                            <h3 data-i18n="contact.email">Email</h3>
+                            <p>
+                                <a href="mailto:punthaweeso@gmail.com" id="contactEmail">punthaweeso@gmail.com</a>
+                                <button class="copy-btn" data-copy-target="contactEmail" title="Copy"><i class="fas fa-copy"></i></button>
+                            </p>
                         </div>
                     </div>
                      <div class="contact-item">
                         <i class="fas fa-phone"></i>
                         <div>
-                            <h3>Phone</h3>
-                            <p>+66-90-972-4819</p>
+                            <h3 data-i18n="contact.phone">Phone</h3>
+                            <p>
+                                <span id="contactPhone">+66-90-972-4819</span>
+                                <button class="copy-btn" data-copy-target="contactPhone" title="Copy"><i class="fas fa-copy"></i></button>
+                            </p>
                         </div>
+                    </div>
+                    <div class="contact-actions">
+                        <button id="downloadVCard" class="contact-action-btn"><i class="fas fa-address-card"></i> <span data-i18n="contact.vcard">Download vCard</span></button>
+                        <button id="downloadQR" class="contact-action-btn"><i class="fas fa-qrcode"></i> <span data-i18n="contact.qr">Download QR</span></button>
                     </div>
                     <div class="social-icons">
                         <a href="https://www.linkedin.com/in/punthawee-sorseang-0775ba1b3" target="_blank"><i class="fab fa-linkedin"></i></a>
@@ -680,22 +695,32 @@
             const body = document.body;
 
             const applyTheme = (theme) => {
+                body.classList.add('theme-transition');
                 if (theme === 'dark') {
                     body.classList.add('dark-mode');
+                    body.classList.remove('light-mode');
                     themeIcon.classList.remove('fa-sun');
                     themeIcon.classList.add('fa-moon');
                 } else {
                     body.classList.remove('dark-mode');
+                    body.classList.add('light-mode');
                     themeIcon.classList.remove('fa-moon');
                     themeIcon.classList.add('fa-sun');
                 }
+                setTimeout(() => body.classList.remove('theme-transition'), 500);
             };
 
-            // On page load, check for saved theme. Default to dark if none found.
-            const savedTheme = localStorage.getItem('theme') || 'dark';
-            applyTheme(savedTheme);
+            const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)');
+            const savedTheme = localStorage.getItem('theme');
+            const initialTheme = savedTheme || (systemPrefersDark.matches ? 'dark' : 'light');
+            applyTheme(initialTheme);
 
-            // Add click listener for the toggle button
+            systemPrefersDark.addEventListener('change', e => {
+                if (!localStorage.getItem('theme')) {
+                    applyTheme(e.matches ? 'dark' : 'light');
+                }
+            });
+
             themeToggle.addEventListener('click', () => {
                 const isDarkMode = body.classList.contains('dark-mode');
                 const newTheme = isDarkMode ? 'light' : 'dark';
