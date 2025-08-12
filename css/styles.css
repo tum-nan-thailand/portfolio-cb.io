@@ -284,7 +284,7 @@ header.scrolled {
 
 nav {
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-start;
     align-items: center;
     padding: 15px 0;
     position: relative;
@@ -344,10 +344,14 @@ nav {
 
 .nav-links {
     display: flex;
+    align-items: center;
+    gap: 30px;
+    margin-left: auto;
+    margin-right: 1rem;
 }
 
 .nav-links li {
-    margin-left: 30px;
+    margin: 0;
 }
 
 .nav-links a {
@@ -359,6 +363,7 @@ nav {
     font-size: 0.9rem;
     letter-spacing: 1px;
     padding: 5px 0;
+    white-space: nowrap;
 }
 
 .nav-links a::before {
@@ -394,15 +399,22 @@ nav {
 
 /* --- HIDE THEME TOGGLE --- */
 .theme-toggle {
-    display: block;
+    display: flex;
+    align-items: center;
     cursor: pointer;
-    margin-right: 1rem;
+}
+
+.nav-controls {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-left: 1rem;
 }
 
 .lang-toggle {
     display: flex;
+    align-items: center;
     gap: 0.25rem;
-    margin-right: 1rem;
 }
 
 .lang-toggle button {
@@ -410,6 +422,7 @@ nav {
     border: none;
     color: var(--text-color);
     cursor: pointer;
+    white-space: nowrap;
 }
 
 .lang-toggle button.active {
@@ -419,6 +432,7 @@ nav {
 .hamburger {
     display: none;
     cursor: pointer;
+    margin-left: 1rem;
 }
 
 .hamburger .line {
@@ -446,6 +460,10 @@ nav {
         display: none;
         padding: 20px 0;
         border-top: 1px solid var(--primary-color);
+    }
+
+    .nav-controls {
+        margin-left: 0;
     }
 
     .nav-links.active {
@@ -1713,8 +1731,10 @@ nav {
 }
 
 .contact-content {
-    display: flex;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
     gap: 50px;
+    align-items: start;
     opacity: 0;
     transform: translateY(30px);
     transition: all 0.6s ease;
@@ -1726,24 +1746,26 @@ nav {
 }
 
 .contact-info {
-    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
 }
 
 .contact-item {
     display: flex;
     align-items: flex-start;
-    margin-bottom: 30px;
+    gap: 15px;
 }
 
 .contact-item i {
     font-size: 1.5rem;
     color: var(--primary-color);
-    margin-right: 15px;
     margin-top: 5px;
 }
 
 .contact-item h3 {
     margin-bottom: 5px;
+    font-size: 1rem;
 }
 
 .copy-btn {
@@ -1756,7 +1778,6 @@ nav {
 }
 
 .contact-actions {
-    margin-top: 10px;
     display: flex;
     gap: 10px;
 }
@@ -1772,6 +1793,11 @@ nav {
     display: flex;
     align-items: center;
     gap: 5px;
+    font-size: 1rem;
+}
+
+.contact-action-btn i {
+    font-size: 1rem;
 }
 
 .contact-action-btn:hover {
@@ -1779,11 +1805,13 @@ nav {
 }
 
 .contact-form {
-    flex: 2;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
 }
 
 .form-group {
-    margin-bottom: 20px;
+    margin: 0;
 }
 
 .form-group input,
@@ -1813,13 +1841,22 @@ nav {
 
 @media (max-width: 768px) {
     .contact-content {
-        flex-direction: column;
+        grid-template-columns: 1fr;
         gap: 30px;
     }
 
-    .contact-info,
-    .contact-form {
-        flex: 1 1 100%;
+    .contact-actions {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .contact-action-btn {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .contact-form .btn {
+        width: 100%;
     }
 }
 
