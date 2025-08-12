@@ -1697,6 +1697,10 @@ nav {
     overflow: hidden;
 }
 
+.contact .section-title {
+    font-size: clamp(1.8rem, 5vw, 2.5rem);
+}
+
 .contact::before {
     content: '';
     position: absolute;
