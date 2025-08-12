@@ -31,7 +31,3 @@ body{background:var(--bg);color:var(--fg);font:16px/1.6 system-ui,Segoe UI,Robot
 .contact-actions{display:flex;gap:10px;flex-wrap:wrap;margin:10px 0}
 .btn{padding:8px 12px;border-radius:10px;border:1px solid rgba(127,127,127,.25);background:transparent;color:var(--fg);cursor:pointer}
 
-.case{margin-top:10px;padding-top:10px;border-top:1px dashed rgba(127,127,127,.25)}
-.case h4{margin:.2rem 0}
-.case dl{display:grid;grid-template-columns:120px 1fr;gap:6px 12px;margin:6px 0}
-.case dt{color:var(--muted)}

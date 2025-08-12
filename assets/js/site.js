@@ -116,7 +116,7 @@ function makeVCard(info){
   });
 })();
 
-/* ===== PROJECTS: FETCH + SEARCH + TAGS + CASE STUDY ===== */
+/* ===== PROJECTS: FETCH + SEARCH + TAGS ===== */
 const GH_USER = 'tum-nan-thailand';
 const API = `https://api.github.com/users/${GH_USER}/repos?sort=updated&per_page=100`;
 const $cards = document.getElementById('project-cards');
@@ -124,41 +124,9 @@ const $chips = document.getElementById('project-chips');
 const $search = document.getElementById('search-projects');
 let repos = [], activeTags = new Set();
 
-const CASE_STUDY = {
-  "sorsery": {
-    problem: "ทำงานซ้ำใน repo หลายโปรเจกต์ ใช้คำสั่ง git ยุ่งยาก",
-    solution: "CLI รวมคำสั่งบ่อย ๆ (commit/tag/release) ให้ใช้งานเร็วแบบ template",
-    impact: "ลดเวลาทำ release ~40% ต่อรอบ",
-    metrics: "CI เวลาเฉลี่ยลดจาก 7m → 4m"
-  },
-  "My-Job-Tracker": {
-    problem: "ติดตามสมัครงานด้วยสเปรดชีต กระจัดกระจาย",
-    solution: "เว็บแอป track ประกาศ/สถานะ/โน้ต พร้อม export",
-    impact: "มองเห็น pipeline ชัดขึ้น",
-    metrics: "เพิ่มอัตรา follow-up ตรงเวลา 90%+"
-  },
-  "git-easy": {
-    problem: "มือใหม่จำ git flow ไม่ได้",
-    solution: "GUI ครอบคำสั่งหลัก + แนะนำขั้นตอนอัตโนมัติ",
-    impact: "ลด error จาก merge/rebase",
-    metrics: "ลด conflict ซ้ำซ้อนลง ~30%"
-  }
-};
-
 function repoCard(r){
   const tags = new Set([r.language, ...(r.topics||[]), ...r.name.split('-')].filter(Boolean));
   const tagHtml = [...tags].slice(0,6).map(t=>`<span class="chip" data-chip readonly>${t}</span>`).join(' ');
-  const cs = CASE_STUDY[r.name];
-  const csHtml = cs ? `
-    <div class="case">
-      <h4 data-i18n="labels.caseStudy">Case Study</h4>
-      <dl>
-        <dt data-i18n="labels.problem">ปัญหา</dt><dd>${cs.problem}</dd>
-        <dt data-i18n="labels.solution">วิธีแก้</dt><dd>${cs.solution}</dd>
-        <dt data-i18n="labels.impact">ผลลัพธ์</dt><dd>${cs.impact}</dd>
-        <dt data-i18n="labels.metrics">ตัวเลข</dt><dd>${cs.metrics}</dd>
-      </dl>
-    </div>` : '';
   return `
   <a class="card" href="${r.html_url}" target="_blank" rel="noopener">
     <h3>${r.name}</h3>
@@ -168,7 +136,6 @@ function repoCard(r){
       <i class="fa-solid fa-code"></i> ${r.language||'—'}
     </small>
     <div class="tags">${tagHtml}</div>
-    ${csHtml}
   </a>`;
 }
 function render(list){

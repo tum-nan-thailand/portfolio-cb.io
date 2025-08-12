@@ -1,10 +1,5 @@
 {
   "labels": {
-    "certificate": "Certificate",
-    "caseStudy": "Case Study",
-    "problem": "ปัญหา",
-    "solution": "วิธีแก้",
-    "impact": "ผลลัพธ์",
-    "metrics": "ตัวเลข"
+    "certificate": "Certificate"
   }
 }

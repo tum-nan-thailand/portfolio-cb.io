@@ -9,6 +9,8 @@
     /* Star gold */
     --text-color: #f8f9fa;
     --bg-color: #0a0a20;
+    --dark-color: #0a0a20;
+    --dark-color-2: rgba(26, 26, 58, 0.6);
     --border-color: #1e1e45;
     --shadow-color: rgba(138, 43, 226, 0.15);
     --transition: all 0.3s ease;
