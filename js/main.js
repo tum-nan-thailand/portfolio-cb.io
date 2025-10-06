@@ -134,8 +134,9 @@ function createDigitalNoiseOverlay() {
 
 // Mobile Menu Toggle
 hamburger.addEventListener('click', () => {
-    hamburger.classList.toggle('active');
-    navLinks.classList.toggle('active');
+    const isOpen = hamburger.classList.toggle('active');
+    navLinks.classList.toggle('active', isOpen);
+    hamburger.setAttribute('aria-expanded', isOpen);
 });
 
 // Close mobile menu when clicking on a nav link
@@ -143,6 +144,7 @@ document.querySelectorAll('.nav-links a').forEach(link => {
     link.addEventListener('click', () => {
         hamburger.classList.remove('active');
         navLinks.classList.remove('active');
+        hamburger.setAttribute('aria-expanded', 'false');
     });
 });
 
