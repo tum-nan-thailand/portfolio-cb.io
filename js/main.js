@@ -57,6 +57,41 @@ document.addEventListener('DOMContentLoaded', () => {
             'max-glare': 0.2
         });
     }
+
+    // --- NEW: Cyber-Scan and 3D-Transform Effect ---
+    const header = document.querySelector('header');
+    const nav = document.querySelector('nav');
+    const scanLine = document.getElementById('scan-line');
+
+    if (header && nav && scanLine) {
+        const handleMouseMove = (e) => {
+            if (window.innerWidth < 1100) return; // Disable on smaller screens
+
+            const { left, top, width, height } = header.getBoundingClientRect();
+            const x = e.clientX - left;
+            const y = e.clientY - top;
+
+            // Update scan line position
+            scanLine.style.transform = `translateY(${y}px)`;
+            scanLine.style.opacity = '1';
+
+            // Apply 3D transform to nav
+            const rotateY = (x / width - 0.5) * 20; // -10 to 10 degrees
+            const rotateX = (0.5 - y / height) * 20; // -10 to 10 degrees
+            nav.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+        };
+
+        const handleMouseLeave = () => {
+            if (window.innerWidth < 1100) return; // Disable on smaller screens
+
+            // Reset styles
+            scanLine.style.opacity = '0';
+            nav.style.transform = 'rotateX(0deg) rotateY(0deg)';
+        };
+
+        header.addEventListener('mousemove', handleMouseMove);
+        header.addEventListener('mouseleave', handleMouseLeave);
+    }
 });
 
 
