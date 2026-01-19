@@ -599,6 +599,12 @@ const certificateData = {
 
 // Work Experience Data
 const experienceDetails = {
+    'qrm-senior-engineer': {
+        title: 'Senior Software Engineer at QRM Consulting Co., Ltd.',
+        description: 'Developed and maintained enterprise Performance Management and Appraisal systems. Designed evaluation workflows for manager and employee self-assessments based on KPI and competency frameworks, supporting multiple models aligned with HR policies. Delivered systems used by group companies in Thailand and overseas, collaborating closely with HR stakeholders and development teams to align system functionality with business objectives.',
+        skills: ['NestJS', 'Node.js', 'Typescript', 'PostgreSQL', 'Microservices', 'Docker', 'Kubernetes'],
+        webApps: []
+    },
     'carabao-senior-backend': {
         title: 'Senior Backend Developer at CARABAO TAWANDANG CO.LTD',
         description: 'As a Senior Backend Developer, I am responsible for designing, developing, and maintaining scalable and high-performance backend systems critical to the company\'s core operations. I collaborate closely with cross-functional teams including frontend, CMS, and mobile application developers to ensure seamless integration and delivery of robust solutions. My work involves architectural design of microservices, implementing agile development methodologies, and conducting thorough root cause analysis to continuously improve system reliability and performance. I also play a key role in mentoring junior developers, fostering their growth, and ensuring adherence to coding standards and best practices.',
